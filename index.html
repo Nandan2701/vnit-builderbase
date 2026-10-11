@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>VNIT BuilderBase — Startups, Products & Alumni Creators</title>
+  <meta name="description"
+    content="The definitive discovery base of startups, products, and ventures built by VNIT alumni. Connect with founders in 1 click.">
+  <meta name="theme-color" content="#000000">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="VNIT BuilderBase — Startups, Products & Alumni Creators">
+  <meta property="og:description"
+    content="The definitive discovery base of startups, products, and ventures built by VNIT alumni. Connect with founders in 1 click.">
+  <meta property="og:type" content="website">
+
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap"
+    rel="stylesheet">
+
+  <!-- Core Design System Stylesheet -->
+  <link rel="stylesheet" href="css/style.css?v=static_headline_vertex_v11">
+</head>
+
+<body>
+
+  <!-- TOP NAVBAR -->
+  <nav class="nav-wrap" aria-label="Main Navigation">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a href="#" class="brand-home-anchor" id="brandHomeAnchor" onclick="handleBrandHomeClick(event)" aria-label="VNIT BuilderBase Home - Reset Filters">
+          <span class="brand-vnit-tag">VNIT</span>
+          <span class="brand-product-title">Builder<span class="brand-accent-text">Base</span></span>
+        </a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-support-nav" id="navSupportBtn" onclick="openContributionModal()" title="Support & Keep VNIT Startups Free" aria-label="Support VNIT Startups">
+          <svg class="heart-icon-nav" width="16" height="16" viewBox="0 0 24 24" fill="#E11D48" stroke="#E11D48" stroke-width="0.8" aria-hidden="true">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.48 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </button>
+        <button class="btn-submit btn-submit-nav" id="navSubmitBtn" onclick="openSubmissionModal()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+            stroke-linecap="round" aria-hidden="true">
+            <path d="M12 5v14M5 12h14"></path>
+          </svg>
+          Get Listed
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO WRAPPER WITH PURE SILK GLACIAL AURORA GRADIENT MESH -->
+  <div class="hero-wrapper" id="heroWrapper">
+    <!-- BACKGROUND AMBIENT STAGE (PURE SMOOTH GLACIAL AURORA GRADIENT + DITHERING NOISE SHIELD) -->
+    <div class="ambient-background-stage" id="ambientStage" aria-hidden="true">
+      <!-- DITHERING NOISE OVERLAY (PREVENTS GRADIENT BANDING) -->
+      <div class="ambient-noise-shield" id="noiseShield"></div>
+
+      <!-- GLACIAL AURORA ORBS (ORGANIC PRIME-NUMBER DURATION CYCLES: 29s, 37s, 43s) -->
+      <div class="aurora-orbs-wrap" id="layerAurora">
+        <div class="aurora-orb orb-cobalt"></div>
+        <div class="aurora-orb orb-cyan"></div>
+        <div class="aurora-orb orb-violet"></div>
+      </div>
+
+      <!-- INTERACTIVE CURSOR SPOTLIGHT WAKE (HOVERS AND MOVES WITH MOUSE) -->
+      <div class="spotlight-wrap" id="layerSpotlight"></div>
+    </div>
+
+    <header class="hero-container" id="heroContainer">
+      <h1 class="hero-headline" id="mainHeroHeadline">
+        <span class="headline-plane-static headline-word-the" id="planeTop">The</span>
+        <span class="headline-dynamic-wrap"><span class="headline-accent-plane" id="heroDynamicWord">Startups</span><span class="hero-typing-caret" id="heroCaret" aria-hidden="true"></span></span><br>
+        <span class="headline-plane-static" id="planeBottom"><em class="headline-word-built">Built</em> by VNITians.</span>
+      </h1>
+
+      <!-- 9-DEPARTMENT FOUNDER TELEMETRY LEADERBOARD -->
+      <section class="hero-leaderboard-wrap" id="heroLeaderboardWrap" aria-label="Startups by Branch Leaderboard">
+        <div class="leaderboard-card">
+          <div class="leaderboard-col-heads">
+            <span>RANK</span>
+            <span>BRANCH</span>
+            <span>RELATIVE SHARE</span>
+            <span class="col-head-r">VOLUME</span>
+          </div>
+
+          <div class="leaderboard-list" id="heroLeaderboardList">
+            <!-- 01. CSE -->
+            <div class="leaderboard-row is-leader">
+              <span class="leaderboard-rank rank-01">01</span>
+              <div class="leaderboard-branch-info">
+                <span class="leaderboard-branch-code">CSE</span>
+                <span class="leaderboard-branch-sub">Comp. Science</span>
+              </div>
+              <div class="leaderboard-track">
+                <div class="leaderboard-bar bar-cse" data-pct="100" data-count="7" style="width: 100%;"></div>
+              </div>
+              <div class="leaderboard-metrics">
+                <span class="leaderboard-val-count">7</span><br>
+                <span class="leaderboard-val-share">22.6%</span>
+              </div>
+            </div>
+
+            <!-- 02. ECE -->
+            <div class="leaderboard-row is-leader">
+              <span class="leaderboard-rank rank-02">02</span>
+              <div class="leaderboard-branch-info">
+                <span class="leaderboard-branch-code">ECE</span>
+                <span class="leaderboard-branch-sub">Electronics</span>
+              </div>
+              <div class="leaderboard-track">
+                <div class="leaderboard-bar bar-ece" data-pct="100" data-count="7" style="width: 100%;"></div>
+              </div>
+              <div class="leaderboard-metrics">
+                <span class="leaderboard-val-count">7</span><br>
+                <span class="leaderboard-val-share">22.6%</span>
+              </div>
+            </div>
+
+            <!-- 03. EEE -->
+            <div class="leaderboard-row">
+              <span class="leaderboard-rank rank-03">03</span>
+              <div class="leaderboard-branch-info">
+                <span class="leaderboard-branch-code">EEE</span>
+                <span class="leaderboard-branch-sub">Electrical</span>
+              </div>
+              <div class="leaderboard-track">
+                <div class="leaderboard-bar bar-eee" data-pct="85.7" data-count="6" style="width: 85.7%;"></div>
+              </div>
+              <div class="leaderboard-metrics">
+                <span class="leaderboard-val-count">6</span><br>
+                <span class="leaderboard-val-share">19.4%</span>
+              </div>
+            </div>
+
+            <!-- 04. CIVIL -->
+            <div class="leaderboard-row">
+              <span class="leaderboard-rank rank-standard">04</span>
+              <div class="leaderboard-branch-info">
+                <span class="leaderboard-branch-code">CIVIL</span>
+                <span class="leaderboard-branch-sub">Civil Eng.</span>
+              </div>
+              <div class="leaderboard-track">
+                <div class="leaderboard-bar bar-civil" data-pct="57.1" data-count="4" style="width: 57.1%;"></div>
+              </div>
+              <div class="leaderboard-metrics">
+                <span class="leaderboard-val-count">4</span><br>
+                <span class="leaderboard-val-share">12.9%</span>
+              </div>
+            </div>
+
+            <!-- 05. MINING -->
+            <div class="leaderboard-row">
+              <span class="leaderboard-rank rank-standard">05</span>
+              <div class="leaderboard-branch-info">
+                <span class="leaderboard-branch-code">MINING</span>
+                <span class="leaderboard-branch-sub">Mining Eng.</span>
+              </div>
+              <div class="leaderboard-track">
+                <div class="leaderboard-bar bar-mining" data-pct="42.9" data-count="3" style="width: 42.9%;"></div>
+              </div>
+              <div class="leaderboard-metrics">
+                <span class="leaderboard-val-count">3</span><br>
+                <span class="leaderboard-val-share">9.7%</span>
+              </div>
+            </div>
+
+            <!-- Dashed Tier Divider -->
+            <div class="leaderboard-tier-divider"></div>
+
+            <!-- 06. MECH -->
+            <div class="leaderboard-row">
+              <span class="leaderboard-rank rank-standard">06</span>
+              <div class="leaderboard-branch-info">
+                <span class="leaderboard-branch-code">MECH</span>
+                <span class="leaderboard-branch-sub">Mechanical</span>
+              </div>
+              <div class="leaderboard-track">
+                <div class="leaderboard-bar bar-mech" data-pct="28.6" data-count="2" style="width: 28.6%;"></div>
+              </div>
+              <div class="leaderboard-metrics">
+                <span class="leaderboard-val-count">2</span><br>
+                <span class="leaderboard-val-share">6.5%</span>
+              </div>
+            </div>
+
+            <!-- 07. MME -->
+            <div class="leaderboard-row">
+              <span class="leaderboard-rank rank-standard">07</span>
+              <div class="leaderboard-branch-info">
+                <span class="leaderboard-branch-code">MME</span>
+                <span class="leaderboard-branch-sub">Metallurgy</span>
+              </div>
+              <div class="leaderboard-track">
+                <div class="leaderboard-bar bar-mme" data-pct="28.6" data-count="2" style="width: 28.6%;"></div>
+              </div>
+              <div class="leaderboard-metrics">
+                <span class="leaderboard-val-count">2</span><br>
+                <span class="leaderboard-val-share">6.5%</span>
+              </div>
+            </div>
+
+            <!-- 08. ARCH -->
+            <div class="leaderboard-row">
+              <span class="leaderboard-rank rank-standard">08</span>
+              <div class="leaderboard-branch-info">
+                <span class="leaderboard-branch-code">ARCH</span>
+                <span class="leaderboard-branch-sub">Architecture</span>
+              </div>
+              <div class="leaderboard-track">
+                <div class="leaderboard-bar bar-arch" data-pct="28.6" data-count="2" style="width: 28.6%;"></div>
+              </div>
+              <div class="leaderboard-metrics">
+                <span class="leaderboard-val-count">2</span><br>
+                <span class="leaderboard-val-share">6.5%</span>
+              </div>
+            </div>
+
+            <!-- 09. CHEM -->
+            <div class="leaderboard-row">
+              <span class="leaderboard-rank rank-standard">09</span>
+              <div class="leaderboard-branch-info">
+                <span class="leaderboard-branch-code">CHEM</span>
+                <span class="leaderboard-branch-sub">Chemical</span>
+              </div>
+              <div class="leaderboard-track">
+                <div class="leaderboard-bar bar-chem" data-pct="14.3" data-count="1" style="width: 14.3%;"></div>
+              </div>
+              <div class="leaderboard-metrics">
+                <span class="leaderboard-val-count">1</span><br>
+                <span class="leaderboard-val-share">3.2%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </header>
+  </div>
+
+  <!-- 3-COLUMN WORKBENCH -->
+  <main class="main-workbench" id="mainWorkbench">
+
+    <!-- LEFT FACET FILTER RAIL -->
+    <aside class="filter-rail" aria-label="Filters Rail">
+
+      <!-- 1. Branch / Department -->
+      <div>
+        <div class="filter-group-title">Branch / Department</div>
+        <div class="facet-list">
+          <div class="facet-item active" onclick="toggleFacet('branch', 'ALL')">
+            <span>All Departments</span>
+            <span class="facet-count" id="branchAllCount">32</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('branch', 'Computer Science')">
+            <span>Computer Science Engineering</span>
+            <span class="facet-count" id="branchCSECount">8</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('branch', 'Electronics')">
+            <span>Electronics and Communication Engineering</span>
+            <span class="facet-count" id="branchECECount">7</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('branch', 'Electrical')">
+            <span>Electrical and Electronics Engineering</span>
+            <span class="facet-count" id="branchEEECount">6</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('branch', 'Mechanical')">
+            <span>Mechanical Engineering</span>
+            <span class="facet-count" id="branchMechCount">2</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('branch', 'Chemical')">
+            <span>Chemical Engineering</span>
+            <span class="facet-count" id="branchChemCount">1</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('branch', 'Civil')">
+            <span>Civil Engineering</span>
+            <span class="facet-count" id="branchCivilCount">4</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('branch', 'Metallurgy')">
+            <span>Metallurgical and Materials</span>
+            <span class="facet-count" id="branchMetCount">2</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('branch', 'Mining')">
+            <span>Mining Engineering</span>
+            <span class="facet-count" id="branchMiningCount">3</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('branch', 'Architecture')">
+            <span>Architecture</span>
+            <span class="facet-count" id="branchArchCount">2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Company Size -->
+      <div>
+        <div class="filter-group-title">Company Size</div>
+        <div class="facet-list">
+          <div class="facet-item active" onclick="toggleFacet('team', 'ALL')">
+            <span>All Sizes</span>
+            <span class="facet-count" id="teamAllCount">32</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('team', '1-5')">
+            <span>1–5</span>
+            <span class="facet-count" id="team15Count">6</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('team', '5-10')">
+            <span>5–10</span>
+            <span class="facet-count" id="team510Count">2</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('team', '10-50')">
+            <span>10–50</span>
+            <span class="facet-count" id="team1050Count">8</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('team', '50-100')">
+            <span>50–100</span>
+            <span class="facet-count" id="team50100Count">4</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('team', '100-200')">
+            <span>100–200</span>
+            <span class="facet-count" id="team100200Count">5</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('team', '200+')">
+            <span>200+ (200 Onwards)</span>
+            <span class="facet-count" id="team200Count">7</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Location -->
+      <div>
+        <div class="filter-group-title">Location</div>
+        <div class="facet-list">
+          <div class="facet-item active" onclick="toggleFacet('location', 'ALL')">
+            <span>All Locations</span>
+            <span class="facet-count" id="locAllCount">32</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('location', 'Mumbai')">
+            <span>Mumbai</span>
+            <span class="facet-count" id="locMumbaiCount">2</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('location', 'Gurugram')">
+            <span>Gurugram</span>
+            <span class="facet-count" id="locGurugramCount">4</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('location', 'Pune')">
+            <span>Pune</span>
+            <span class="facet-count" id="locPuneCount">8</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('location', 'Nagpur')">
+            <span>Nagpur</span>
+            <span class="facet-count" id="locNagpurCount">7</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('location', 'Bangalore')">
+            <span>Bangalore</span>
+            <span class="facet-count" id="locBangaloreCount">6</span>
+          </div>
+          <div class="facet-item" onclick="toggleFacet('location', 'Redwood City, California')">
+            <span>Redwood City, California</span>
+            <span class="facet-count" id="locRedwoodCount">1</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- CENTER STREAM (Stage 1 Cards Feed) -->
+    <section class="stream-container">
+      
+      <!-- CONTEXTUAL SEARCH & SORT TOOLBAR ON TOP OF STAGE 1 LIST -->
+      <div class="stream-toolbar">
+        <div class="stream-search-wrap">
+          <div class="stream-search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          <input type="text" id="searchInput" class="stream-search-input"
+            placeholder="Search companies, branch, batch year, founders, or location... (Press / to focus)"
+            oninput="executeSearch()" autocomplete="off">
+          <kbd class="stream-search-kbd">/</kbd>
+        </div>
+
+        <div class="mobile-controls-row">
+          <!-- Mobile Filter Trigger -->
+          <button class="btn-filter-mobile" id="mobileFilterTriggerBtn" onclick="openMobileFilterModal()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+            Filters <span id="mobileActiveCount" style="background:#E2E8F0; padding:2px 6px; border-radius:6px; font-size:12px; margin-left:4px; display:none;">0</span>
+          </button>
+
+          <div class="stream-sort-wrap">
+            <select class="sort-select" id="sortSelect" onchange="handleSortChange(this.value)">
+              <option value="relevance">Sort: Relevance</option>
+              <option value="latest">Sort: Latest to Oldest</option>
+              <option value="oldest">Sort: Oldest to Latest</option>
+              <option value="alphabetical">Sort: Alphabetical (A-Z)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="stream-cards-list" id="cardsContainer">
+        <!-- Injected via JavaScript Render Engine -->
+      </div>
+    </section>
+
+    <!-- 3. RIGHT STAGE 2 IN-PLACE INSPECTION PANE (Desktop Side-Column / Mobile Native Bottom Sheet) -->
+    <aside class="inspection-column" id="inspectionDrawer" aria-label="Startup Details Inspection Panel" onclick="if (event.target === this) closeDrawer();">
+      <div class="inspection-column-inner" id="drawerSheet" onclick="event.stopPropagation();">
+        <div class="stage2-grip" aria-hidden="true" onclick="if (window.innerWidth <= 960) closeDrawer();"></div>
+        <!-- Header -->
+        <div class="stage2-header" id="drawerHeader">
+          <div id="drawerTitleBlock" style="display: flex; align-items: center; gap: 14px;">
+            <div id="stage2LogoTile" class="card-monogram-tile" style="width: 46px; height: 46px; flex-shrink: 0; background: #FFFFFF; padding: 4px; border: 1px solid #E2E8F0; border-radius: 8px;">
+              <img id="stage2LogoImg" src="./assets/logos/truemeds-india.png" alt="Company Logo" class="card-logo-img" style="object-fit: contain; width: 100%; height: 100%;">
+            </div>
+            <div>
+              <h2 class="stage2-title" id="stage2Title">Truemeds India</h2>
+            </div>
+          </div>
+          <button class="stage2-close-btn" onclick="closeDrawer()" title="Close Inspection (Esc)">✕</button>
+        </div>
+
+        <!-- Body -->
+        <div class="stage2-body" id="drawerBodyContent">
+          <!-- Injected dynamically via renderDrawer() -->
+        </div>
+
+        <!-- Footer -->
+        <div class="stage2-footer" id="drawerFooterContent">
+          <!-- Injected dynamically via renderDrawer() -->
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- DEDICATED COMMUNITY ECOSYSTEM DOCK (Attached at the end) -->
+  <footer class="ecosystem-dock-section" id="communityDock">
+    <div class="ecosystem-dock-inner">
+
+      <!-- 1. The VNIT Dispatch (Newsletter Callout - Architectural Studio Ledger) -->
+      <div class="studio-dispatch-card" id="newsletterCard">
+        <!-- Left: Editorial Context & Narrative -->
+        <div class="dispatch-left" id="dispatchLeftContent">
+          <h2 class="dispatch-title">Never Miss a startup Built by a VNITian.</h2>
+          <p class="dispatch-sub" id="dispatchSubText">
+            A handpicked monthly briefing covering alumni venture launches, seed rounds, and campus innovation.
+          </p>
+        </div>
+
+        <!-- Right: Architectural Action Capsule -->
+        <div class="dispatch-right" id="dispatchRightContent">
+          <!-- Active Form Capsule (Architecture 1: Adaptive Morph) -->
+          <form class="dispatch-capsule" id="newsletterFormCapsule" onsubmit="handleNewsletterSubmit(event)">
+            <div class="dispatch-input-wrap">
+              <div class="dispatch-icon" aria-hidden="true">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+              </div>
+              <input type="email" id="newsletterEmail" class="dispatch-input" required
+                placeholder="your.name@gmail.com" autocomplete="email">
+            </div>
+            <button type="submit" class="dispatch-action-btn" id="newsletterSubmitBtn">
+              <span>Send me Updates</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- Confirmed In-Situ State (Shows ONLY REGISTRATION CONFIRMED & You're on the list.) -->
+        <div class="dispatch-success-slate" id="newsletterSuccessState">
+          <div class="dispatch-success-kicker">
+            <span class="dispatch-success-dot"></span>
+            <span>REGISTRATION CONFIRMED</span>
+          </div>
+          <div class="dispatch-success-title">You're on the list.</div>
+          <button type="button" class="dispatch-change-email-btn" onclick="resetNewsletterForm()">Change email</button>
+        </div>
+      </div>
+
+      <!-- 2. Finalized Variation 14: Unified Split Command Dock -->
+      <div class="unified-dock-card">
+        <div class="dock-split-body">
+          
+          <!-- Note to the Curator (Architecture 1: Natural Sequential Flow) -->
+          <div class="dock-left-panel">
+            <div class="dock-panel-header">
+              <div class="dock-panel-title">
+                <span class="dock-dot-indicator blue"></span>
+                <span>Note to the Curator</span>
+              </div>
+              <span class="dock-badge-pill blue">DIRECT INBOX</span>
+            </div>
+
+            <!-- Step 1: Identity Row (Name & Email) -->
+            <div class="dock-meta-row">
+              <input type="text" id="feedbackName" class="dock-sub-input" placeholder="Your Name (optional)">
+              <input type="email" id="feedbackEmail" class="dock-sub-input" placeholder="Email / Gmail (for reply)">
+            </div>
+
+            <!-- Step 2: Message Canvas -->
+            <div class="hero-compose-box">
+              <textarea id="feedbackInput" class="dock-hero-textarea" rows="4" placeholder="Spotted an unlisted founder, a batch correction, or have feedback? Write directly to the curator..."></textarea>
+            </div>
+
+            <!-- Step 3: Action Row (Hint + Send Button) -->
+            <div class="dock-action-row">
+              <span class="dock-action-hint">📬 Received directly in the curator's inbox</span>
+              <button type="button" class="dock-anchored-btn" onclick="sendMakerFeedback()">
+                Send to Curator ↗
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- INTEGRATED BASEMENT STRIP (Dignified Institutional + Live Telemetry) -->
+        <div class="dock-basement-strip">
+          <div class="dock-telemetry-row">
+            <span class="dock-tel-item"><span style="color:#10B981;">●</span> <strong id="pageViewsCounter">8,995</strong> Views</span>
+            <span class="dock-tel-item"><span style="color:#2563EB;">●</span> <strong id="uniqueVisitorsCounter">1,843</strong> Visitors</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Institutional Footer Bar -->
+    <div class="site-footer">
+      <div class="footer-inner">
+        <div>VISVESVARAYA NATIONAL INSTITUTE OF TECHNOLOGY · EST. 1960 (FORMERLY VRCE NAGPUR)</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SUBMISSION MODAL (Variation 01: Architectural Studio Ledger) -->
+  <div class="modal-backdrop" id="submissionModal" onclick="closeSubmissionModal(event)">
+    <div class="modal-container modal-studio" role="dialog" aria-modal="true" aria-labelledby="submissionModalTitle"
+      onclick="event.stopPropagation()">
+      <button type="button" class="studio-close-btn" onclick="closeSubmissionModal()" aria-label="Close">&times;</button>
+
+      <!-- Left Rail: Architectural Context (No Quality Verified block) -->
+      <div class="studio-left">
+        <div>
+          <h2 class="studio-title" id="submissionModalTitle">Get your startup listed. 30 seconds.</h2>
+          <p class="studio-sub" id="submissionModalSub">Takes under 30 seconds. Join 30+ alumni founders putting VNIT on the global startup frontier.</p>
+        </div>
+      </div>
+
+      <!-- Right Rail: Form and In-Situ Success Transition -->
+      <div class="studio-right">
+        <!-- Step 1: four details, top to bottom -->
+        <form id="submissionForm" onsubmit="handleStartupSubmission(event)">
+          <!-- Honeypot -->
+          <input type="text" id="anti_spam_fax" style="display:none;" tabindex="-1" autocomplete="off">
+
+          <div class="studio-group">
+            <div class="studio-label-row">
+              <label class="studio-label" for="sub_name">Your name</label>
+              <span class="studio-hint">01</span>
+            </div>
+            <input type="text" id="sub_name" class="studio-input" required maxlength="80" autocomplete="name"
+              placeholder="e.g. Rahul Sharma">
+          </div>
+
+          <div class="studio-group">
+            <div class="studio-label-row">
+              <label class="studio-label" for="sub_company_name">Startup name</label>
+              <span class="studio-hint">02</span>
+            </div>
+            <input type="text" id="sub_company_name" class="studio-input" required maxlength="120"
+              autocomplete="organization" placeholder="e.g. Orbital Dynamics">
+          </div>
+
+          <div class="studio-group">
+            <div class="studio-label-row">
+              <label class="studio-label" for="sub_website">Website link</label>
+              <span class="studio-hint">03</span>
+            </div>
+            <input type="text" inputmode="url" id="sub_website" class="studio-input" required maxlength="200"
+              autocomplete="url" placeholder="orbitaldynamics.space" oninput="this.setCustomValidity('')">
+          </div>
+
+          <div class="studio-group">
+            <div class="studio-label-row">
+              <label class="studio-label" for="sub_email">Your Gmail / email</label>
+              <span class="studio-hint">04</span>
+            </div>
+            <input type="email" id="sub_email" class="studio-input" required maxlength="120" autocomplete="email"
+              placeholder="rahul@gmail.com">
+          </div>
+
+          <div class="form-error" id="submissionError" role="alert" hidden></div>
+
+          <button type="submit" class="studio-btn" id="submitFormBtn">
+            <span>Submit for Listing</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+          </button>
+        </form>
+
+        <!-- Step 2: confirmation, shown in place of the form -->
+        <div class="submit-success" id="submissionSuccess" hidden>
+          <!-- Visual Trust Symbol 1: Encapsulated Emerald Checkmark with soft halo -->
+          <div class="submit-success-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.5 12.75l6 6 9-11.5"></path>
+            </svg>
+          </div>
+
+          <!-- Personal Warm Gratitude -->
+          <div class="submit-success-head">
+            <h3 class="submit-success-title" id="submissionSuccessTitle">Thanks!</h3>
+            <p class="submit-success-meta" id="submissionSuccessMeta">We've received <strong class="submit-success-company" id="submissionSuccessCompany">Your Startup</strong>. We'll verify your details and email you once your company is live.</p>
+          </div>
+
+          <!-- 3-Stage Progress Timeline / Stepper -->
+          <div class="submission-stepper" aria-label="Submission progress lifecycle">
+            <div class="stepper-step step-done">
+              <div class="step-badge" title="Completed">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <div class="step-name">Submitted</div>
+            </div>
+            <div class="stepper-connector connector-done"></div>
+            <div class="stepper-step step-active">
+              <div class="step-badge" title="In Progress">
+                <span class="step-pulse-dot"></span>
+              </div>
+              <div class="step-name">Review</div>
+            </div>
+            <div class="stepper-connector connector-pending"></div>
+            <div class="stepper-step step-pending">
+              <div class="step-badge" title="Upcoming">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                  <path d="M2 12h20"></path>
+                </svg>
+              </div>
+              <div class="step-name">Published Live</div>
+            </div>
+          </div>
+
+          <!-- Direct Notification Channel Card -->
+          <div class="submission-email-card">
+            <div class="email-card-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+            </div>
+            <div class="email-card-body">
+              <div class="email-card-label">Direct Notification Channel</div>
+              <div class="email-card-target" id="submissionSuccessEmail">you@gmail.com</div>
+              <div class="email-card-hint">We'll email you here once your company is live.</div>
+            </div>
+          </div>
+
+          <!-- Terminal Action Button -->
+          <button type="button" class="studio-btn" id="submissionDoneBtn" onclick="closeSubmissionModal()">
+            Done · Explore Directory
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AWWWARDS CURSOR-FOLLOWING BRANCH INSPECTOR (DESKTOP) - VARIATION 04 APPLE NOTCH -->
+  <aside id="branchHoverInspector" class="branch-hover-inspector" aria-hidden="true">
+    <div class="bhi-notch"></div>
+    <div class="bhi-list" id="bhiList">
+      <!-- Injected startup names & logos only -->
+    </div>
+  </aside>
+
+  <!-- JAVASCRIPT APPLICATION CORE -->
+  <!-- Core Client Application Engine -->
+  <script src="js/app.js?v=static_headline_vertex_v11"></script>
+
+  <!-- MOBILE SIDE-BY-SIDE FILTER DRAWER (Left Slide-in Architecture) -->
+  <div class="mobile-filter-overlay" id="mfOverlay" onclick="closeMobileFilterModal()"></div>
+  <div class="mobile-filter-modal" id="mfModal" role="dialog" aria-modal="true" aria-label="Filters & Sorting">
+    <div class="mf-header">
+      <span class="mf-header-title">Filters & Sorting</span>
+      <button type="button" class="mf-close" onclick="closeMobileFilterModal()" aria-label="Close filters">×</button>
+    </div>
+    
+    <div class="mf-body">
+      <!-- Left: Gray Background Tabs (Partition 1 with square brackets) -->
+      <div class="mf-tabs-left" id="mfTabsList">
+        <!-- Rendered via JS -->
+      </div>
+      
+      <!-- Right: Continuous Checkbox Options (Partition 2) -->
+      <div class="mf-options-right" id="mfOptionsList">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+    
+    <div class="mf-footer">
+      <button type="button" class="mf-btn-clear" onclick="clearMobileFilters()">Clear</button>
+      <button type="button" class="mf-btn-apply" onclick="applyMobileFilters()">Show Results</button>
+    </div>
+  </div>
+
+  <!-- FOUNDER PHOTO LIGHTBOX MODAL (Stage 2 Photo Preview) -->
+  <div class="founder-photo-modal-backdrop" id="founderPhotoModal" role="dialog" aria-modal="true" aria-label="Founder Photo Preview" onclick="closeFounderPhotoModal(event)">
+    <div class="founder-photo-modal-dialog" onclick="event.stopPropagation()">
+      <button type="button" class="founder-photo-modal-close" onclick="closeFounderPhotoModal()" aria-label="Close photo preview">✕</button>
+      <div class="founder-photo-modal-frame">
+        <img id="founderPhotoModalImg" src="" alt="Founder Photo" class="founder-photo-modal-img">
+      </div>
+      <div class="founder-photo-modal-caption">
+        <div class="founder-photo-modal-name" id="founderPhotoModalName"></div>
+        <div class="founder-photo-modal-meta" id="founderPhotoModalMeta"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTRIBUTION MODAL (Centered Modal on Desktop, Native Bottom Sheet on Mobile) -->
+  <div class="contrib-modal-backdrop" id="contribModal" role="dialog" aria-modal="true" aria-label="Support VNIT Startups" onclick="handleContribBackdropClick(event)">
+    <div class="contrib-modal-dialog" id="contribModalDialog">
+      <!-- Mobile Pill Drag Handle -->
+      <div class="contrib-sheet-handle" aria-hidden="true"></div>
+      
+      <!-- Close Button -->
+      <button type="button" class="contrib-close-btn" onclick="closeContributionModal()" aria-label="Close contribution window">×</button>
+
+      <div class="contrib-modal-body">
+        <h3 class="dock-contribute-headline">
+          Keep the Website <span class="dock-headline-highlight">100% Free and Updated</span> so VNITians Can Always Discover and Connect with Founders.
+        </h3>
+
+        <!-- Layout 1: Vertical Power Stack (Tiers & Reasons) -->
+        <div class="dock-tiers-stack">
+          <!-- Tier 1: ₹50 -->
+          <div class="dock-tier-row" onclick="selectDonationAmt(50, this)">
+            <div class="dock-tier-left">
+              <div class="dock-tier-radio"><div class="dock-tier-radio-dot"></div></div>
+              <span class="dock-tier-amt">₹50</span>
+            </div>
+            <span class="dock-tier-reason">Adds 2 new startups</span>
+          </div>
+
+          <!-- Tier 2: ₹150 (Default / Popular) -->
+          <div class="dock-tier-row is-active" onclick="selectDonationAmt(150, this)">
+            <div class="dock-tier-left">
+              <div class="dock-tier-radio"><div class="dock-tier-radio-dot"></div></div>
+              <span class="dock-tier-amt">₹150</span>
+            </div>
+            <span class="dock-tier-reason">Covers 1 week of server</span>
+            <span class="dock-tier-badge">Popular</span>
+          </div>
+
+          <!-- Tier 3: ₹500 -->
+          <div class="dock-tier-row" onclick="selectDonationAmt(500, this)">
+            <div class="dock-tier-left">
+              <div class="dock-tier-radio"><div class="dock-tier-radio-dot"></div></div>
+              <span class="dock-tier-amt">₹500</span>
+            </div>
+            <span class="dock-tier-reason">Backs 1 month of servers and updates</span>
+          </div>
+
+          <!-- Tier 4: Custom -->
+          <div class="dock-tier-row" id="dockCustomRow" onclick="selectCustomDonation(this)">
+            <div class="dock-tier-left">
+              <div class="dock-tier-radio"><div class="dock-tier-radio-dot"></div></div>
+              <span class="dock-tier-amt">Custom</span>
+            </div>
+            <span class="dock-tier-reason" id="dockCustomReasonLabel">Enter any amount (₹)...</span>
+          </div>
+
+          <div class="dock-custom-input-wrap" id="dockCustomInputWrap">
+            <input type="number" class="dock-custom-input" id="dockCustomAmtInput" placeholder="Enter amount in ₹ (e.g. 250)" oninput="updateCustomDonationVal(this.value)">
+          </div>
+        </div>
+
+        <!-- Dynamic Action Button -->
+        <a href="javascript:void(0)" onclick="triggerUpiPay()" class="dock-btn-support" id="dockSupportBtn">
+          Pay ₹150 via Any UPI App ↗
+        </a>
+
+        <!-- Finalized Reassurance Micro-Line -->
+        <div class="dock-support-trust-row">
+          <span style="color:#10B981;font-size:12px;">🛡️</span>
+          <span>100% goes directly to server hosting & adding new startups</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

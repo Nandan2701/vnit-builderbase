@@ -1,0 +1,25 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary & backup files
+*.bak*
+*.backup
+*.tmp
+scratch/
+
+# Vercel
+.vercel/
+
+# Logs & Environment
+*.log
+.env
+.env.local
+.env.*.local
