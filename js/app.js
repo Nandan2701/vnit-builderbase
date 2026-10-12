@@ -1432,7 +1432,10 @@
         if (!str) return false;
         const s = str.toLowerCase();
         if (target === 'computer science') return /\b(computer|comp|cse|cs)\b/i.test(s) || s.includes('computer science');
-        if (target === 'electronics') return /\b(electronics|electronic|ece|comm|telecom)\b/i.test(s) || s.includes('electronics & communication') || s.includes('electronics and communication');
+        if (target === 'electronics') {
+          const clean = s.replace(/electrical\s*(and|&)\s*electronics/gi, 'electrical').replace(/\beee\b/gi, 'electrical');
+          return /\b(electronics|electronic|ece|comm|telecom)\b/i.test(clean) || clean.includes('electronics & communication') || clean.includes('electronics and communication');
+        }
         if (target === 'electrical') return /\b(electrical|eee)\b/i.test(s);
         if (target === 'mechanical') return /\b(mechanical|mech)\b/i.test(s);
         if (target === 'chemical') return /\b(chemical|chem)\b/i.test(s);
