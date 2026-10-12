@@ -5204,3 +5204,264 @@
   .mobile-controls-row { display: contents !important; }
   .btn-filter-mobile, .mobile-filter-overlay, .mobile-filter-modal { display: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   COLOPHON & ABOUT THE MAKER MODAL & FOOTER ATTRIBUTION
+   ═══════════════════════════════════════════════════════════════════ */
+.footer-byline-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 14px;
+  font-family: var(--font-mono, monospace);
+  font-size: 11.5px;
+  color: var(--ink-muted, #64748B);
+}
+
+.byline-prefix {
+  opacity: 0.85;
+}
+
+.byline-maker-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  color: var(--ink-primary, #0F172A);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.byline-maker-btn:hover {
+  color: var(--action-primary, #2563EB);
+}
+
+.footer-colophon-link {
+  font-weight: 700 !important;
+  color: var(--ink-primary, #0F172A) !important;
+}
+
+.colophon-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.68);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.colophon-modal-backdrop.is-open {
+  display: flex;
+  opacity: 1;
+}
+
+.colophon-modal-dialog {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.28);
+  overflow: hidden;
+  animation: colophonIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes colophonIn {
+  from { transform: translateY(12px) scale(0.98); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.colophon-modal-header {
+  padding: 20px 24px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.colophon-modal-kicker {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #D97706;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.colophon-modal-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.colophon-close-btn {
+  background: #F1F5F9;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.colophon-close-btn:hover {
+  background: #E2E8F0;
+  color: #0F172A;
+}
+
+.colophon-modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.colophon-author-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+}
+
+.colophon-author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+  flex-shrink: 0;
+}
+
+.colophon-author-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.colophon-author-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.colophon-author-origin {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.colophon-narrative-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.colophon-p {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #334155;
+  margin: 0;
+}
+
+.colophon-sub-p {
+  color: #64748B;
+  font-size: 13px;
+  border-left: 2.5px solid #2563EB;
+  padding-left: 12px;
+  margin-top: 4px;
+}
+
+.colophon-social-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 4px;
+}
+
+@media (max-width: 580px) {
+  .colophon-social-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.colophon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 9px;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.colophon-btn-x {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.colophon-btn-x:hover {
+  background: #18181B;
+  transform: translateY(-1px);
+}
+
+.colophon-btn-li {
+  background: #0A66C2;
+  color: #FFFFFF;
+}
+
+.colophon-btn-li:hover {
+  background: #004182;
+  transform: translateY(-1px);
+}
+
+.colophon-btn-mail {
+  background: #F1F5F9;
+  color: #0F172A;
+  border: 1px solid #CBD5E1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.colophon-btn-mail:hover {
+  background: #E2E8F0;
+  transform: translateY(-1px);
+}

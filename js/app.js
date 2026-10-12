@@ -2296,6 +2296,11 @@
     // Close on Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
+        const colophonModal = document.getElementById('colophonModal');
+        if (colophonModal && colophonModal.classList.contains('is-open')) {
+          closeColophonModal();
+          return;
+        }
         const legalModal = document.getElementById('legalModal');
         if (legalModal && legalModal.classList.contains('is-open')) {
           closeLegalModal();
@@ -2455,6 +2460,31 @@
     window.closeLegalModal = closeLegalModal;
     window.handleLegalBackdropClick = handleLegalBackdropClick;
     window.switchLegalTab = switchLegalTab;
+
+    /* ─── ABOUT THE MAKER & COLOPHON MODAL CONTROLLER ─── */
+    function openColophonModal() {
+      const modal = document.getElementById('colophonModal');
+      if (!modal) return;
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeColophonModal() {
+      const modal = document.getElementById('colophonModal');
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    function handleColophonBackdropClick(event) {
+      if (event && event.target && event.target.id === 'colophonModal') {
+        closeColophonModal();
+      }
+    }
+
+    window.openColophonModal = openColophonModal;
+    window.closeColophonModal = closeColophonModal;
+    window.handleColophonBackdropClick = handleColophonBackdropClick;
 
     /* ─── SUBMIT YOUR STARTUP (four details → startup_submissions queue) ─── */
     function openSubmissionModal() {
