@@ -1010,12 +1010,12 @@
       // 1. Optimistic Instant Render: Read cached or local values immediately for 0ms delay
       let cached = null;
       try {
-        const raw = localStorage.getItem('vnit_telemetry_cache');
+        const raw = localStorage.getItem('vnit_telemetry_cache_v2');
         if (raw) cached = JSON.parse(raw);
       } catch (e) {}
 
-      let visits = cached ? Number(cached.total_views) : parseInt(localStorage.getItem('vnit_page_views') || '9037', 10);
-      let unique = cached ? Number(cached.unique_visitors) : parseInt(localStorage.getItem('vnit_unique_visitors') || '1843', 10);
+      let visits = cached ? Number(cached.total_views) : parseInt(localStorage.getItem('vnit_page_views_v2') || '2215', 10);
+      let unique = cached ? Number(cached.unique_visitors) : parseInt(localStorage.getItem('vnit_unique_visitors_v2') || '750', 10);
 
       const uvEl = document.getElementById('uniqueVisitorsCounter');
       const pvEl = document.getElementById('pageViewsCounter');
@@ -1050,9 +1050,9 @@
               unique_visitors: Number(data.unique_visitors),
               total_views: Number(data.total_views)
             };
-            localStorage.setItem('vnit_telemetry_cache', JSON.stringify(nextData));
-            localStorage.setItem('vnit_unique_visitors', nextData.unique_visitors);
-            localStorage.setItem('vnit_page_views', nextData.total_views);
+            localStorage.setItem('vnit_telemetry_cache_v2', JSON.stringify(nextData));
+            localStorage.setItem('vnit_unique_visitors_v2', nextData.unique_visitors);
+            localStorage.setItem('vnit_page_views_v2', nextData.total_views);
             animateCounter('uniqueVisitorsCounter', nextData.unique_visitors);
             animateCounter('pageViewsCounter', nextData.total_views);
           }
@@ -1060,11 +1060,11 @@
         .catch(() => {
           // Graceful fallback: local increment if RPC not yet created in Supabase
           visits += 1;
-          localStorage.setItem('vnit_page_views', visits);
-          if (!localStorage.getItem('vnit_has_visited')) {
+          localStorage.setItem('vnit_page_views_v2', visits);
+          if (!localStorage.getItem('vnit_has_visited_v2')) {
             unique += 1;
-            localStorage.setItem('vnit_has_visited', 'true');
-            localStorage.setItem('vnit_unique_visitors', unique);
+            localStorage.setItem('vnit_has_visited_v2', 'true');
+            localStorage.setItem('vnit_unique_visitors_v2', unique);
           }
           if (uvEl) uvEl.innerText = unique.toLocaleString();
           if (pvEl) pvEl.innerText = visits.toLocaleString();
