@@ -982,21 +982,94 @@
       if (el) el.innerText = timeStr;
     }
 
-    function initTelemetry() {
-      let visits = parseInt(localStorage.getItem('vnit_page_views') || '8920', 10) + 1;
-      localStorage.setItem('vnit_page_views', visits);
+    function animateCounter(elementId, targetValue) {
+      const el = document.getElementById(elementId);
+      if (!el || typeof targetValue !== 'number' || isNaN(targetValue)) return;
+      const current = parseInt(el.innerText.replace(/,/g, ''), 10) || 0;
+      if (current === targetValue) return;
 
-      let unique = parseInt(localStorage.getItem('vnit_unique_visitors') || '1842', 10);
-      if (!localStorage.getItem('vnit_has_visited')) {
-        unique += 1;
-        localStorage.setItem('vnit_has_visited', 'true');
-        localStorage.setItem('vnit_unique_visitors', unique);
+      const diff = targetValue - current;
+      const duration = 450;
+      const start = performance.now();
+
+      function step(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3); // cubic ease out
+        const value = Math.round(current + diff * ease);
+        el.innerText = value.toLocaleString();
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.innerText = targetValue.toLocaleString();
+        }
       }
+      requestAnimationFrame(step);
+    }
+
+    function initTelemetry() {
+      // 1. Optimistic Instant Render: Read cached or local values immediately for 0ms delay
+      let cached = null;
+      try {
+        const raw = localStorage.getItem('vnit_telemetry_cache');
+        if (raw) cached = JSON.parse(raw);
+      } catch (e) {}
+
+      let visits = cached ? Number(cached.total_views) : parseInt(localStorage.getItem('vnit_page_views') || '9037', 10);
+      let unique = cached ? Number(cached.unique_visitors) : parseInt(localStorage.getItem('vnit_unique_visitors') || '1843', 10);
 
       const uvEl = document.getElementById('uniqueVisitorsCounter');
       const pvEl = document.getElementById('pageViewsCounter');
       if (uvEl) uvEl.innerText = unique.toLocaleString();
       if (pvEl) pvEl.innerText = visits.toLocaleString();
+
+      // 2. Anonymous Device / Visitor Identifier (Privacy-friendly 1st-party UUID)
+      let visitorId = localStorage.getItem('vnit_visitor_uuid');
+      if (!visitorId) {
+        visitorId = 'bb_' + (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36));
+        localStorage.setItem('vnit_visitor_uuid', visitorId);
+      }
+
+      // 3. Global Synchronized Sync via Supabase RPC (with graceful fallback)
+      if (typeof SUPABASE_URL !== 'undefined' && typeof SUPABASE_ANON !== 'undefined') {
+        fetch(`${SUPABASE_URL}/rest/v1/rpc/record_telemetry`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON,
+            'Authorization': `Bearer ${SUPABASE_ANON}`
+          },
+          body: JSON.stringify({ p_visitor_id: visitorId })
+        })
+        .then(async (res) => {
+          if (!res.ok) throw new Error('RPC endpoint not active');
+          return await res.json();
+        })
+        .then((data) => {
+          if (data && typeof data.total_views !== 'undefined' && typeof data.unique_visitors !== 'undefined') {
+            const nextData = {
+              unique_visitors: Number(data.unique_visitors),
+              total_views: Number(data.total_views)
+            };
+            localStorage.setItem('vnit_telemetry_cache', JSON.stringify(nextData));
+            localStorage.setItem('vnit_unique_visitors', nextData.unique_visitors);
+            localStorage.setItem('vnit_page_views', nextData.total_views);
+            animateCounter('uniqueVisitorsCounter', nextData.unique_visitors);
+            animateCounter('pageViewsCounter', nextData.total_views);
+          }
+        })
+        .catch(() => {
+          // Graceful fallback: local increment if RPC not yet created in Supabase
+          visits += 1;
+          localStorage.setItem('vnit_page_views', visits);
+          if (!localStorage.getItem('vnit_has_visited')) {
+            unique += 1;
+            localStorage.setItem('vnit_has_visited', 'true');
+            localStorage.setItem('vnit_unique_visitors', unique);
+          }
+          if (uvEl) uvEl.innerText = unique.toLocaleString();
+          if (pvEl) pvEl.innerText = visits.toLocaleString();
+        });
+      }
     }
 
     function initKeyboardShortcuts() {
