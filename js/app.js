@@ -1303,52 +1303,121 @@
       updateHeroLeaderboardDynamic();
     }
 
-    function updateHeroLeaderboardDynamic() {
+    function updateHeroLeaderboardDynamic(animate = false) {
       const listEl = document.getElementById('heroLeaderboardList');
       if (!listEl) return;
-      const rows = listEl.querySelectorAll('.leaderboard-row');
-      const branchQueryMap = {
-        'CSE': 'Computer Science',
-        'ECE': 'Electronics',
-        'EEE': 'Electrical',
-        'CIVIL': 'Civil',
-        'MINING': 'Mining',
-        'MECH': 'Mechanical',
-        'MME': 'Metallurgy',
-        'ARCH': 'Architecture',
-        'CHEM': 'Chemical'
-      };
-      const counts = {};
-      let maxCount = 0;
-      const total = allStartups.length || 1;
-      rows.forEach(row => {
-        const codeEl = row.querySelector('.leaderboard-branch-code');
-        if (!codeEl) return;
-        const code = codeEl.textContent.trim();
-        const query = branchQueryMap[code] || code;
-        const count = allStartups.filter(s => hasBranch(s, query)).length;
-        counts[code] = count;
-        if (count > maxCount) maxCount = count;
-      });
-      if (maxCount === 0) maxCount = 1;
-      rows.forEach(row => {
-        const codeEl = row.querySelector('.leaderboard-branch-code');
-        if (!codeEl) return;
-        const code = codeEl.textContent.trim();
-        const count = counts[code] !== undefined ? counts[code] : 0;
-        const sharePct = ((count / total) * 100).toFixed(1) + '%';
-        const relPct = ((count / maxCount) * 100).toFixed(1);
 
+      const BRANCH_DEFS = [
+        { code: 'CSE', sub: 'Comp. Science', query: 'Computer Science', barClass: 'bar-cse' },
+        { code: 'ECE', sub: 'Electronics', query: 'Electronics', barClass: 'bar-ece' },
+        { code: 'EEE', sub: 'Electrical', query: 'Electrical', barClass: 'bar-eee' },
+        { code: 'CIVIL', sub: 'Civil Eng.', query: 'Civil', barClass: 'bar-civil' },
+        { code: 'MINING', sub: 'Mining Eng.', query: 'Mining', barClass: 'bar-mining' },
+        { code: 'MECH', sub: 'Mechanical', query: 'Mechanical', barClass: 'bar-mech' },
+        { code: 'MME', sub: 'Metallurgy', query: 'Metallurgy', barClass: 'bar-mme' },
+        { code: 'ARCH', sub: 'Architecture', query: 'Architecture', barClass: 'bar-arch' },
+        { code: 'CHEM', sub: 'Chemical', query: 'Chemical', barClass: 'bar-chem' }
+      ];
+
+      const PREFERRED_TIE_ORDER = ['CSE', 'ECE', 'EEE', 'CIVIL', 'MINING', 'MECH', 'MME', 'ARCH', 'CHEM'];
+
+      const dataset = (typeof allStartups !== 'undefined' && Array.isArray(allStartups) && allStartups.length > 0)
+        ? allStartups
+        : (typeof SEED_STARTUPS !== 'undefined' ? SEED_STARTUPS : []);
+
+      const total = dataset.length || 1;
+      const branchStats = BRANCH_DEFS.map(b => {
+        const count = dataset.filter(s => hasBranch(s, b.query)).length;
+        return { ...b, count };
+      });
+
+      // Sort strictly by count descending, with stable canonical tie-breaker
+      branchStats.sort((a, b) => {
+        if (b.count !== a.count) return b.count - a.count;
+        return PREFERRED_TIE_ORDER.indexOf(a.code) - PREFERRED_TIE_ORDER.indexOf(b.code);
+      });
+
+      const maxCount = Math.max(...branchStats.map(b => b.count), 1);
+
+      // Map existing DOM rows by branch code to preserve elements and styles
+      const existingRows = {};
+      listEl.querySelectorAll('.leaderboard-row').forEach(row => {
+        const codeEl = row.querySelector('.leaderboard-branch-code');
+        if (codeEl) existingRows[codeEl.textContent.trim()] = row;
+      });
+
+      let divider = listEl.querySelector('.leaderboard-tier-divider');
+      if (!divider) {
+        divider = document.createElement('div');
+        divider.className = 'leaderboard-tier-divider';
+      }
+
+      branchStats.forEach((branch, idx) => {
+        const row = existingRows[branch.code];
+        if (!row) return;
+
+        const rankNum = (idx + 1).toString().padStart(2, '0');
+        const sharePct = ((branch.count / total) * 100).toFixed(1) + '%';
+        const relPct = ((branch.count / maxCount) * 100).toFixed(1);
+
+        // Update Rank badge
+        const rankEl = row.querySelector('.leaderboard-rank');
+        if (rankEl) {
+          rankEl.textContent = rankNum;
+          rankEl.className = 'leaderboard-rank ' + (idx === 0 ? 'rank-01' : (idx === 1 ? 'rank-02' : (idx === 2 ? 'rank-03' : 'rank-standard')));
+        }
+
+        // Leader highlight on Top row (or tied for #1)
+        if (idx === 0 || branch.count === maxCount) {
+          row.classList.add('is-leader');
+        } else {
+          row.classList.remove('is-leader');
+        }
+
+        // Bar Track
         const bar = row.querySelector('.leaderboard-bar');
         if (bar) {
-          bar.setAttribute('data-count', count);
+          bar.setAttribute('data-count', branch.count);
           bar.setAttribute('data-pct', relPct);
-          bar.style.width = `${relPct}%`;
+          if (animate) {
+            bar.style.width = '0%';
+            setTimeout(() => {
+              bar.style.width = `${relPct}%`;
+            }, 50 + idx * 40);
+          } else {
+            bar.style.width = `${relPct}%`;
+          }
         }
+
+        // Volume number and percentage share
         const valCount = row.querySelector('.leaderboard-val-count');
-        if (valCount) valCount.textContent = count;
+        if (valCount) {
+          if (animate) {
+            let start = 0;
+            const duration = 500;
+            const startTime = performance.now();
+            function tick(now) {
+              const elapsed = now - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+              const current = Math.round(start + (branch.count - start) * Math.sin(progress * Math.PI / 2));
+              valCount.textContent = current;
+              if (progress < 1) requestAnimationFrame(tick);
+              else valCount.textContent = branch.count;
+            }
+            setTimeout(() => requestAnimationFrame(tick), 50 + idx * 40);
+          } else {
+            valCount.textContent = branch.count;
+          }
+        }
+
         const valShare = row.querySelector('.leaderboard-val-share');
         if (valShare) valShare.textContent = sharePct;
+
+        // Position in DOM
+        if (idx === 5) {
+          listEl.appendChild(divider);
+        }
+        listEl.appendChild(row);
       });
     }
 
@@ -3027,38 +3096,9 @@
     }
 
     (function initHeroLeaderboard() {
-      const listEl = document.getElementById('heroLeaderboardList');
-      if (!listEl) return;
-
-      const bars = listEl.querySelectorAll('.leaderboard-bar');
-      bars.forEach((bar, idx) => {
-        bar.style.width = '0%';
-        const targetPct = bar.getAttribute('data-pct');
-        const targetCount = parseInt(bar.getAttribute('data-count'), 10);
-        const delay = 100 + idx * 45; // Staggered 45ms per row (1x normal cadence)
-
-        setTimeout(() => {
-          bar.style.width = `${targetPct}%`;
-
-          // Synchronized rolling number ticker
-          const row = bar.closest('.leaderboard-row');
-          const tickerEl = row ? row.querySelector('.leaderboard-val-count') : null;
-          if (tickerEl && !isNaN(targetCount)) {
-            let start = 0;
-            const duration = 550;
-            const startTime = performance.now();
-            function tickTicker(now) {
-              const elapsed = now - startTime;
-              const progress = Math.min(elapsed / duration, 1);
-              const current = Math.round(start + (targetCount - start) * Math.sin(progress * Math.PI / 2));
-              tickerEl.textContent = current;
-              if (progress < 1) requestAnimationFrame(tickTicker);
-              else tickerEl.textContent = targetCount;
-            }
-            requestAnimationFrame(tickTicker);
-          }
-        }, delay);
-      });
+      if (typeof updateHeroLeaderboardDynamic === 'function') {
+        updateHeroLeaderboardDynamic(true);
+      }
     })();
 
     /* ═══════════════════════════════════════════════════════════════════
@@ -3185,33 +3225,32 @@
         };
       }
 
-      const rows = cardWrap.querySelectorAll('.leaderboard-row');
-      rows.forEach(row => {
-        row.addEventListener('mouseenter', (e) => {
-          if (window.innerWidth <= 960) return;
-          const codeEl = row.querySelector('.leaderboard-branch-code');
-          if (!codeEl) return;
-          const code = codeEl.textContent.trim();
+      cardWrap.addEventListener('mouseover', (e) => {
+        if (window.innerWidth <= 960) return;
+        const row = e.target.closest('.leaderboard-row');
+        if (!row) return;
+        const codeEl = row.querySelector('.leaderboard-branch-code');
+        if (!codeEl) return;
+        const code = codeEl.textContent.trim();
 
-          if (activeBranchCode !== code) {
-            activeBranchCode = code;
-            renderBranchRoster(code);
-          }
+        if (activeBranchCode !== code) {
+          activeBranchCode = code;
+          renderBranchRoster(code);
+        }
 
-          const coords = calcCoordinates(e);
-          targetX = coords.x;
-          targetY = coords.y;
+        const coords = calcCoordinates(e);
+        targetX = coords.x;
+        targetY = coords.y;
 
-          if (!isVisible) {
-            isVisible = true;
-            currentX = targetX;
-            currentY = targetY;
-            inspector.style.transform = `translate3d(${Math.round(currentX)}px, ${Math.round(currentY)}px, 0)`;
-            inspector.classList.add('is-active');
-            if (rAF) cancelAnimationFrame(rAF);
-            rAF = requestAnimationFrame(updatePhysics);
-          }
-        });
+        if (!isVisible) {
+          isVisible = true;
+          currentX = targetX;
+          currentY = targetY;
+          inspector.style.transform = `translate3d(${Math.round(currentX)}px, ${Math.round(currentY)}px, 0)`;
+          inspector.classList.add('is-active');
+          if (rAF) cancelAnimationFrame(rAF);
+          rAF = requestAnimationFrame(updatePhysics);
+        }
       });
 
       cardWrap.addEventListener('mousemove', (e) => {
