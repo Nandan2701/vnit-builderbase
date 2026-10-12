@@ -7,6 +7,7 @@
     /* ─── CLIENT APPLICATION STATE & LOGIC ─── */
     const SUPABASE_URL = "https://gqbmrbjdeoxwwnulwsfq.supabase.co";
     const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdxYm1yYmpkZW94d3dudWx3c2ZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA4NDYxNzIsImV4cCI6MjEwNjQyMjE3Mn0.ClePAFMe3CrNgU2hYIUvz9dhE8fyEAbUvps6569BnEk";
+    const GMAIL_DISPATCHER_URL = "https://script.google.com/macros/s/AKfycbwujqPCUKylFAswFAagpCusE7kRc2dbkwR-_Az9HYgLfPohDG7np2bTu1GuSCBDEccM/exec";
 
     // Fallback Verified Seed Roster (guarantees instant zero-CORS rendering even via file:// protocol)
     const SEED_STARTUPS = [
@@ -2186,43 +2187,6 @@
       document.getElementById('feedbackInput').focus();
     }
 
-    async function sendMakerFeedback() {
-      const input = document.getElementById('feedbackInput');
-      const nameInput = document.getElementById('feedbackName');
-      const emailInput = document.getElementById('feedbackEmail');
-      const val = input.value.trim();
-      if (!val) return;
-
-      const nameVal = nameInput ? nameInput.value.trim() : '';
-      const emailVal = emailInput ? emailInput.value.trim() : '';
-
-      input.value = 'Sending message...';
-      input.disabled = true;
-
-      const payloadNote = (nameVal || emailVal)
-        ? `${val}\n\n[Author: ${nameVal || 'Anonymous'} | Contact: ${emailVal || 'None'}]`
-        : val;
-
-      try {
-        await fetch(`${SUPABASE_URL}/rest/v1/maker_feedback`, {
-          method: 'POST',
-          headers: {
-            'apikey': SUPABASE_ANON,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ note: payloadNote, created_at: new Date().toISOString() })
-        });
-      } catch (err) {
-        console.log('Saved note local:', payloadNote);
-      }
-
-      alert('Thank you! Your note has been received by the VNIT BuilderBase directory team.');
-      input.value = '';
-      if (nameInput) nameInput.value = '';
-      if (emailInput) emailInput.value = '';
-      input.disabled = false;
-    }
-
     function openContributionModal() {
       const modal = document.getElementById('contribModal');
       if (modal) {
@@ -2545,17 +2509,12 @@
       const company = document.getElementById('sub_company_name').value.trim();
       const email = document.getElementById('sub_email').value.trim();
 
+      // Clean payload for the 4 fields in get_listed table
       const payload = {
-        submitter_name: name,
-        company_name: company,
-        website_url: website,
-        submitter_email: email,
-        // The queue table still requires these older columns; the short form does not ask for them
-        founder_name: name,
-        founder_branch: 'Not provided',
-        founder_batch: 0,
-        pitch: 'Not provided',
-        status: 'pending'
+        name: name,
+        startup_name: company,
+        website_link: website,
+        email: email
       };
 
       const submitBtn = document.getElementById('submitFormBtn');
@@ -2568,7 +2527,8 @@
       const timeout = setTimeout(() => controller.abort(), 12000);
 
       try {
-        const res = await fetch(`${SUPABASE_URL}/rest/v1/startup_submissions`, {
+        // Primary: POST to get_listed table
+        let res = await fetch(`${SUPABASE_URL}/rest/v1/get_listed`, {
           method: 'POST',
           headers: {
             'apikey': SUPABASE_ANON,
@@ -2579,13 +2539,59 @@
           body: JSON.stringify(payload),
           signal: controller.signal
         });
+
+        // Graceful fallback to legacy startup_submissions table if get_listed is not yet created
+        if (!res.ok && res.status === 404) {
+          const legacyPayload = {
+            submitter_name: name,
+            company_name: company,
+            website_url: website,
+            submitter_email: email,
+            founder_name: name,
+            founder_branch: 'Not provided',
+            founder_batch: 0,
+            pitch: 'Not provided',
+            status: 'pending'
+          };
+          res = await fetch(`${SUPABASE_URL}/rest/v1/startup_submissions`, {
+            method: 'POST',
+            headers: {
+              'apikey': SUPABASE_ANON,
+              'Authorization': `Bearer ${SUPABASE_ANON}`,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(legacyPayload),
+            signal: controller.signal
+          });
+        }
+
         if (!res.ok) throw new Error(`Submission rejected (HTTP ${res.status})`);
+
+        // Trigger automated confirmation email from vnitbuilderbase@gmail.com
+        try {
+          if (typeof GMAIL_DISPATCHER_URL !== 'undefined' && GMAIL_DISPATCHER_URL) {
+            fetch(GMAIL_DISPATCHER_URL, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name: name,
+                startup_name: company,
+                website_link: website,
+                email: email
+              })
+            }).catch(emailErr => console.warn('Gmail dispatch notice:', emailErr));
+          }
+        } catch (emailErr) {
+          console.warn('Gmail dispatch error:', emailErr);
+        }
 
         showSubmissionSuccess(name, company, email);
         document.getElementById('submissionForm').reset();
       } catch (err) {
         console.error('Startup submission failed:', err);
-        errorEl.textContent = "We couldn't submit your details right now. Please check your internet connection and try clicking Submit for Listing again.";
+        errorEl.textContent = "We couldn't submit your details right now. Please check your internet connection or table permissions and try clicking Submit for Listing again.";
         errorEl.hidden = false;
       } finally {
         clearTimeout(timeout);
@@ -2641,17 +2647,22 @@
 
       try {
         if (typeof SUPABASE_URL !== 'undefined' && typeof SUPABASE_ANON !== 'undefined') {
-          await fetch(`${SUPABASE_URL}/rest/v1/newsletter_subscribers`, {
+          const res = await fetch(`${SUPABASE_URL}/rest/v1/newsletter_subscribers`, {
             method: 'POST',
             headers: {
               'apikey': SUPABASE_ANON,
-              'Content-Type': 'application/json'
+              'Authorization': `Bearer ${SUPABASE_ANON}`,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=minimal'
             },
-            body: JSON.stringify({ email: val, created_at: new Date().toISOString() })
+            body: JSON.stringify({ email: val })
           });
+          if (!res.ok) {
+            console.warn('Newsletter subscription returned HTTP:', res.status);
+          }
         }
       } catch (err) {
-        console.log('Newsletter subscription recorded locally:', val);
+        console.error('Newsletter subscription failed:', err);
       }
 
       // In-situ swap: hide left & right content, show only clean confirmation slate
@@ -2687,6 +2698,104 @@
         setTimeout(() => emailInput.focus(), 60);
       }
     }
+
+    /* ─── SUGGEST AN ADDITION OR EDIT CONTROLLER ─── */
+    async function sendMakerFeedback() {
+      const nameInput = document.getElementById('feedbackName');
+      const emailInput = document.getElementById('feedbackEmail');
+      const msgInput = document.getElementById('feedbackInput');
+      const sendBtn = document.querySelector('.dock-anchored-btn');
+
+      const name = nameInput ? nameInput.value.trim() : '';
+      const email = emailInput ? emailInput.value.trim() : '';
+      const message = msgInput ? msgInput.value.trim() : '';
+
+      if (!message) {
+        if (msgInput) {
+          msgInput.focus();
+          msgInput.placeholder = "⚠️ Please write your suggestion, startup addition, or edit here first...";
+        }
+        return;
+      }
+
+      const origText = sendBtn ? sendBtn.innerHTML : 'Send to Team ↗';
+      if (sendBtn) {
+        sendBtn.disabled = true;
+        sendBtn.innerHTML = 'Sending…';
+      }
+
+      try {
+        const payload = {
+          name: name || null,
+          email: email || null,
+          message: message
+        };
+
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/suggest_edits`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON,
+            'Authorization': `Bearer ${SUPABASE_ANON}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        // In-situ transition: hide inputs, display clean confirmed slate (NO browser alert)
+        const formWrap = document.getElementById('feedbackFormWrap');
+        const successState = document.getElementById('feedbackSuccessState');
+        if (formWrap && successState) {
+          formWrap.style.display = 'none';
+          successState.style.display = 'flex';
+        }
+
+        // Reset input fields
+        if (msgInput) msgInput.value = '';
+        if (nameInput) nameInput.value = '';
+        if (emailInput) emailInput.value = '';
+        if (sendBtn) {
+          sendBtn.disabled = false;
+          sendBtn.innerHTML = origText;
+        }
+      } catch (err) {
+        console.error('Feedback submission failed:', err);
+        if (sendBtn) {
+          sendBtn.disabled = false;
+          sendBtn.innerHTML = 'Error. Click to retry ↗';
+          setTimeout(() => {
+            sendBtn.innerHTML = origText;
+          }, 3000);
+        }
+      }
+    }
+
+    function resetMakerFeedback() {
+      const formWrap = document.getElementById('feedbackFormWrap');
+      const successState = document.getElementById('feedbackSuccessState');
+      const msgInput = document.getElementById('feedbackInput');
+      const sendBtn = document.getElementById('feedbackSubmitBtn');
+
+      if (successState) successState.style.display = 'none';
+      if (formWrap) formWrap.style.display = '';
+      if (sendBtn) {
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = 'Send to Team ↗';
+      }
+      if (msgInput) {
+        msgInput.value = '';
+        setTimeout(() => msgInput.focus(), 60);
+      }
+    }
+
+    // Explicitly expose modal and submission handlers to global window scope for inline onclick/onsubmit attributes
+    window.openSubmissionModal = openSubmissionModal;
+    window.closeSubmissionModal = closeSubmissionModal;
+    window.handleStartupSubmission = handleStartupSubmission;
+    window.handleNewsletterSubmit = handleNewsletterSubmit;
+    window.resetNewsletterForm = resetNewsletterForm;
+    window.sendMakerFeedback = sendMakerFeedback;
+    window.resetMakerFeedback = resetMakerFeedback;
 
     /* Once a visitor has scrolled past the whole list and returns to the top, draw the eye to the submit button (one time) */
     (function initSubmitCue() {

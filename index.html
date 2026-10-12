@@ -509,22 +509,36 @@
               <span class="dock-badge-pill blue">COMMUNITY DESK</span>
             </div>
 
-            <!-- Step 1: Identity Row (Name & Email) -->
-            <div class="dock-meta-row">
-              <input type="text" id="feedbackName" class="dock-sub-input" placeholder="Your Name (optional)">
-              <input type="email" id="feedbackEmail" class="dock-sub-input" placeholder="Email / Gmail (for reply)">
+            <!-- Form Body Wrap -->
+            <div id="feedbackFormWrap">
+              <!-- Step 1: Identity Row (Name & Email) -->
+              <div class="dock-meta-row">
+                <input type="text" id="feedbackName" class="dock-sub-input" placeholder="Your Name (optional)">
+                <input type="email" id="feedbackEmail" class="dock-sub-input" placeholder="Email / Gmail (for reply)">
+              </div>
+
+              <!-- Step 2: Message Canvas -->
+              <div class="hero-compose-box">
+                <textarea id="feedbackInput" class="dock-hero-textarea" rows="4" placeholder="Spotted an unlisted founder, a batch correction, or have feedback? Share your notes with the directory team..."></textarea>
+              </div>
+
+              <!-- Step 3: Action Row (Send Button) -->
+              <div class="dock-action-row">
+                <button type="button" class="dock-anchored-btn" id="feedbackSubmitBtn" onclick="sendMakerFeedback()">
+                  Send to Team ↗
+                </button>
+              </div>
             </div>
 
-            <!-- Step 2: Message Canvas -->
-            <div class="hero-compose-box">
-              <textarea id="feedbackInput" class="dock-hero-textarea" rows="4" placeholder="Spotted an unlisted founder, a batch correction, or have feedback? Share your notes with the directory team..."></textarea>
-            </div>
-
-            <!-- Step 3: Action Row (Send Button) -->
-            <div class="dock-action-row">
-              <button type="button" class="dock-anchored-btn" onclick="sendMakerFeedback()">
-                Send to Team ↗
-              </button>
+            <!-- In-situ Confirmation State (Smooth in-place confirmation, zero browser alert popups) -->
+            <div class="dispatch-success-slate" id="feedbackSuccessState" style="display:none; padding: 20px 16px; flex-direction:column; align-items:flex-start; gap:8px;">
+              <div class="dispatch-success-kicker">
+                <span class="dispatch-success-dot"></span>
+                <span>NOTE RECEIVED</span>
+              </div>
+              <div class="dispatch-success-title" style="font-size:17px;">Thanks! We've received your note.</div>
+              <p style="color:var(--ink-secondary); font-size:13px; line-height:1.4; margin:4px 0 12px 0;">Our directory team reviews community suggestions regularly and will follow up if you left your email.</p>
+              <button type="button" class="dispatch-change-email-btn" onclick="resetMakerFeedback()">Send another note</button>
             </div>
           </div>
 
