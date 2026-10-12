@@ -2368,6 +2368,10 @@
         btn.innerHTML = `Pay ₹${amt} via GPay / UPI / Cards ↗`;
         btn.href = RAZORPAY_ME_BASE_URL;
       }
+      const hint = document.getElementById('dockStepHint');
+      if (hint) {
+        hint.textContent = `💡 Enter ₹${amt} on the Razorpay screen to complete via GPay / PhonePe / Cards`;
+      }
     }
 
     function selectCustomDonation(el) {
@@ -2386,6 +2390,10 @@
               btn.innerHTML = `Pay Custom via GPay / UPI / Cards ↗`;
               btn.href = RAZORPAY_ME_BASE_URL;
             }
+            const hint = document.getElementById('dockStepHint');
+            if (hint) {
+              hint.textContent = `💡 Enter your amount on the Razorpay screen to complete via GPay / PhonePe / Cards`;
+            }
           }
         }
       }
@@ -2394,16 +2402,23 @@
     function updateCustomDonationVal(val) {
       const clean = parseInt(val, 10);
       const btn = document.getElementById('dockSupportBtn');
+      const hint = document.getElementById('dockStepHint');
       if (clean && clean > 0) {
         activeDonationAmt = clean;
         if (btn) {
           btn.innerHTML = `Pay ₹${clean} via GPay / UPI / Cards ↗`;
           btn.href = RAZORPAY_ME_BASE_URL;
         }
+        if (hint) {
+          hint.textContent = `💡 Enter ₹${clean} on the Razorpay screen to complete via GPay / PhonePe / Cards`;
+        }
       } else {
         if (btn) {
           btn.innerHTML = `Pay Custom via GPay / UPI / Cards ↗`;
           btn.href = RAZORPAY_ME_BASE_URL;
+        }
+        if (hint) {
+          hint.textContent = `💡 Enter your amount on the Razorpay screen to complete via GPay / PhonePe / Cards`;
         }
       }
     }
