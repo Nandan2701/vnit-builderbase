@@ -2923,11 +2923,19 @@
       }
     }
 
+    /* Form Wrapper & Vertical Alignment */
+    #feedbackFormWrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     /* Eye Path 3: Auxiliary Name & Email Fields */
     .dock-meta-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
+      margin-bottom: 2px;
     }
 
     @media (max-width: 580px) {
