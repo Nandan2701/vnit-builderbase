@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VNIT BuilderBase — 10 Theme-Matched Avatar Variations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --surface-canvas: #FBFBF9;
+      --surface-card: #FFFFFF;
+      --surface-elevated: #F4F4F0;
+      --grid-line: #E4E4E7;
+      --ink-primary: #18181B;
+      --ink-secondary: #3F3F46;
+      --ink-muted: #71717A;
+      --border-subtle: #E4E4E7;
+      --border-card: #D4D4D8;
+      --action-primary: #D97706;
+      --action-hover: #B45309;
+      --cobalt-tint-bg: #FEF3C7;
+      --cobalt-tint-border: #FDE68A;
+      --cobalt-tint-text: #92400E;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: var(--surface-canvas);
+      background-image: 
+        linear-gradient(to right, rgba(228, 228, 231, 0.6) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(228, 228, 231, 0.6) 1px, transparent 1px);
+      background-size: 28px 28px;
+      color: var(--ink-primary);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      padding: 40px 24px 100px;
+      min-height: 100vh;
+    }
+    .header {
+      max-width: 900px;
+      margin: 0 auto 40px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--cobalt-tint-bg);
+      border: 1px solid var(--cobalt-tint-border);
+      color: var(--cobalt-tint-text);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink-primary);
+      margin-bottom: 8px;
+    }
+    p.subtitle {
+      color: var(--ink-muted);
+      font-size: 15px;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 32px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-card);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 14px rgba(24, 24, 27, 0.05);
+    }
+    .card:hover {
+      border-color: var(--action-primary);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(24, 24, 27, 0.08), 0 0 20px rgba(217, 119, 6, 0.12);
+    }
+    .card-top {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .card-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--action-primary);
+      background: var(--cobalt-tint-bg);
+      border: 1px solid var(--cobalt-tint-border);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink-primary);
+    }
+    .preview-stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+    
+    /* Canvases */
+    .avatar-wrapper {
+      position: relative;
+    }
+    .avatar-square {
+      width: 180px;
+      height: 180px;
+      border-radius: 24px;
+      box-shadow: 0 8px 24px rgba(24, 24, 27, 0.12);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+    }
+    .avatar-circle-preview {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      border: 2.5px solid var(--action-primary);
+      box-shadow: 0 6px 18px rgba(24, 24, 27, 0.14);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #FFFFFF;
+    }
+    .preview-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 8px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .btn-download {
+      width: 100%;
+      padding: 12px 18px;
+      background: var(--ink-primary);
+      border: 1px solid var(--ink-primary);
+      color: #FFFFFF;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .btn-download:hover {
+      background: var(--action-primary);
+      border-color: var(--action-primary);
+      color: #FFFFFF;
+      box-shadow: 0 6px 18px rgba(217, 119, 6, 0.3);
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: var(--ink-muted);
+      text-align: center;
+      margin-bottom: 16px;
+      line-height: 1.5;
+      min-height: 36px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">✦ Exact Website Palette Match</div>
+    <h1>VNIT Builder Base — 10 Theme-Matched Avatars</h1>
+    <p class="subtitle">Engineered strictly with the website's design system: <strong>Warm Stone Canvas (#FBFBF9)</strong>, <strong>Deep Carbon 900 (#18181B)</strong>, and <strong>Burnished Technical Amber (#D97706)</strong>. Click "Download 512×512 PNG" on your winner to upload directly to Buy Me a Coffee.</p>
+  </div>
+
+  <div class="grid" id="avatarGrid"></div>
+
+  <script>
+    // EXACT WEBSITE DESIGN SYSTEM TOKENS
+    const C_CANVAS = "#FBFBF9";
+    const C_CARD = "#FFFFFF";
+    const C_GRID = "#E4E4E7";
+    const C_CARBON = "#18181B";
+    const C_ZINC_DARK = "#3F3F46";
+    const C_ZINC_MUTED = "#71717A";
+    const C_AMBER = "#D97706";
+    const C_AMBER_HOVER = "#B45309";
+    const C_TINT_BG = "#FEF3C7";
+    const C_TINT_BORDER = "#FDE68A";
+    const C_TINT_TEXT = "#92400E";
+
+    const variations = [
+      {
+        id: 1,
+        title: "Architectural Stone Hero",
+        desc: "The exact signature aesthetic of the website: Warm Stone canvas, 28px blueprint grid, and Burnished Amber telemetry pill.",
+        render: (ctx, size) => {
+          // Warm Stone Canvas
+          ctx.fillStyle = C_CANVAS;
+          ctx.fillRect(0, 0, size, size);
+
+          // Blueprint 28px Grid scaled to 512
+          ctx.strokeStyle = "rgba(228, 228, 231, 0.9)";
+          ctx.lineWidth = 1.5;
+          const step = size / 10;
+          for (let x = 0; x <= size; x += step) {
+            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, size); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, x); ctx.lineTo(size, x); ctx.stroke();
+          }
+
+          // Center Card Tile
+          const pad = size * 0.10;
+          const cardW = size - (pad * 2);
+          ctx.fillStyle = C_CARD;
+          ctx.strokeStyle = "#D4D4D8";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.roundRect(pad, pad, cardW, cardW, size * 0.08);
+          ctx.fill();
+          ctx.stroke();
+
+          // Pulse Dot
+          ctx.fillStyle = C_AMBER;
+          ctx.beginPath();
+          ctx.arc(size/2, size * 0.28, size * 0.024, 0, Math.PI * 2);
+          ctx.fill();
+
+          // VNIT
+          ctx.fillStyle = C_CARBON;
+          ctx.font = `900 ${size * 0.19}px 'Plus Jakarta Sans', sans-serif`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("VNIT", size/2, size * 0.45);
+
+          // Telemetry Pill: BUILDER BASE
+          const pw = size * 0.60;
+          const ph = size * 0.12;
+          const px = (size - pw)/2;
+          const py = size * 0.60;
+          ctx.fillStyle = C_TINT_BG;
+          ctx.strokeStyle = C_TINT_BORDER;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.roundRect(px, py, pw, ph, 999);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.fillStyle = C_TINT_TEXT;
+          ctx.font = `800 ${size * 0.062}px 'JetBrains Mono', monospace`;
+          ctx.fillText("BUILDER BASE", size/2, py + ph/2);
+        }
+      },
+      {
+        id: 2,
+        title: "Deep Carbon 900",
+        desc: "Inverted Deep Carbon theme matching the dark buttons and headers, highlighted with Burnished Technical Amber.",
+        render: (ctx, size) => {
+          // Deep Carbon 900 Canvas
+          ctx.fillStyle = C_CARBON;
+          ctx.fillRect(0, 0, size, size);
+
+          // Subtle Dark Grid
+          ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
+          ctx.lineWidth = 1;
+          const step = size / 8;
+          for (let x = 0; x <= size; x += step) {
+            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, size); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, x); ctx.lineTo(size, x); ctx.stroke();
+          }
+
+          // Amber Radial Accent
+          const g = ctx.createRadialGradient(size/2, size/2, 20, size/2, size/2, size * 0.55);
+          g.addColorStop(0, "rgba(217, 119, 6, 0.18)");
+          g.addColorStop(1, "transparent");
+          ctx.fillStyle = g;
+          ctx.fillRect(0, 0, size, size);
+
+          // VNIT
+          ctx.fillStyle = C_CANVAS;
+          ctx.font = `900 ${size * 0.22}px 'Plus Jakarta Sans', sans-serif`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("VNIT", size/2, size * 0.44);
+
+          // Accent Underline
+          ctx.fillStyle = C_AMBER;
+          ctx.fillRect(size * 0.35, size * 0.56, size * 0.30, size * 0.015);
+
+          // BUILDER BASE
+          ctx.fillStyle = C_AMBER;
+          ctx.font = `800 ${size * 0.076}px 'JetBrains Mono', monospace`;
+          ctx.fillText("BUILDER BASE", size/2, size * 0.67);
+        }
+      },
+      {
+        id: 3,
+        title: "Stage-2 Monogram Tile",
+        desc: "Direct replica of the directory's Stage-2 company card logo tile: crisp white frame, hairline border, bold typography.",
+        render: (ctx, size) => {
+          ctx.fillStyle = C_CANVAS;
+          ctx.fillRect(0, 0, size, size);
+
+          // Inner Border Tile
+          const pad = size * 0.08;
+          const w = size - (pad * 2);
+          ctx.fillStyle = C_CARD;
+          ctx.strokeStyle = C_GRID;
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.roundRect(pad, pad, w, w, size * 0.06);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+
+          // VNIT
+          ctx.fillStyle = C_CARBON;
+          ctx.font = `900 ${size * 0.23}px 'Plus Jakarta Sans', sans-serif`;
+          ctx.fillText("VNIT", size/2, size * 0.41);
+
+          // Amber Badge Box
+          const bw = size * 0.66;
+          const bh = size * 0.13;
+          const bx = (size - bw)/2;
+          const by = size * 0.58;
+          ctx.fillStyle = C_AMBER;
+          ctx.beginPath();
+          ctx.roundRect(bx, by, bw, bh, size * 0.025);
+          ctx.fill();
+
+          ctx.fillStyle = "#FFFFFF";
+          ctx.font = `800 ${size * 0.068}px 'Space Grotesk', sans-serif`;
+          ctx.fillText("BUILDER BASE", size/2, by + bh/2);
+        }
+      },
+      {
+        id: 4,
+        title: "Burnished Amber Primary",
+        desc: "Bold flagship interaction color (#D97706) as background with high-contrast Deep Carbon & White typography.",
+        render: (ctx, size) => {
+          // Amber Primary Canvas with subtle gradient
+          const grad = ctx.createLinearGradient(0, 0, size, size);
+          grad.addColorStop(0, C_AMBER);
+          grad.addColorStop(1, C_AMBER_HOVER);
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, size, size);
+
+          // Subtle internal border
+          ctx.strokeStyle = "rgba(255, 255, 255, 0.25)";
+          ctx.lineWidth = 2;
+          ctx.strokeRect(size * 0.08, size * 0.08, size * 0.84, size * 0.84);
+
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+
+          // VNIT in White
+          ctx.fillStyle = "#FFFFFF";
+          ctx.font = `900 ${size * 0.22}px 'Plus Jakarta Sans', sans-serif`;
+          ctx.fillText("VNIT", size/2, size * 0.40);
+
+          // Dark Carbon Badge
+          const bw = size * 0.70;
+          const bh = size * 0.15;
+          const bx = (size - bw)/2;
+          const by = size * 0.56;
+          ctx.fillStyle = C_CARBON;
+          ctx.beginPath();
+          ctx.roundRect(bx, by, bw, bh, size * 0.03);
+          ctx.fill();
+
+          ctx.fillStyle = C_CANVAS;
+          ctx.font = `800 ${size * 0.072}px 'JetBrains Mono', monospace`;
+          ctx.fillText("BUILDER BASE", size/2, by + bh/2);
+        }
+      },
+      {
+        id: 5,
+        title: "Full Blueprint Matrix",
+        desc: "Architectural blueprint layout: 28px grid canvas with technical register marks and precision monospace hierarchy.",
+        render: (ctx, size) => {
+          ctx.fillStyle = C_CANVAS;
+          ctx.fillRect(0, 0, size, size);
+
+          // Blueprint Grid
+          ctx.strokeStyle = C_GRID;
+          ctx.lineWidth = 1.5;
+          const step = size / 10;
+          for (let x = 0; x <= size; x += step) {
+            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, size); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, x); ctx.lineTo(size, x); ctx.stroke();
+          }
+
+          // Corner registration crosshairs
+          ctx.strokeStyle = C_AMBER;
+          ctx.lineWidth = 2.5;
+          const p = size * 0.12, l = size * 0.05;
+          // TL
+          ctx.beginPath(); ctx.moveTo(p-l, p); ctx.lineTo(p+l, p); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(p, p-l); ctx.lineTo(p, p+l); ctx.stroke();
+          // TR
+          ctx.beginPath(); ctx.moveTo(size-p-l, p); ctx.lineTo(size-p+l, p); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(size-p, p-l); ctx.lineTo(size-p, p+l); ctx.stroke();
+
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+
+          // VNIT
+          ctx.fillStyle = C_CARBON;
+          ctx.font = `900 ${size * 0.22}px 'JetBrains Mono', monospace`;
+          ctx.fillText("VNIT", size/2, size * 0.43);
+
+          // Divider rule
+          ctx.fillStyle = C_AMBER;
+          ctx.fillRect(size * 0.25, size * 0.57, size * 0.5, size * 0.012);
+
+          // BUILDER BASE
+          ctx.fillStyle = C_ZINC_DARK;
+          ctx.font = `700 ${size * 0.078}px 'JetBrains Mono', monospace`;
+          ctx.fillText("BUILDER BASE", size/2, size * 0.67);
+        }
+      },
+      {
+        id: 6,
+        title: "Swiss Foundry Stack",
+        desc: "Pure typographic hierarchy in Warm Stone canvas: stacked ultra-bold letters with site signature amber indicator.",
+        render: (ctx, size) => {
+          ctx.fillStyle = C_CANVAS;
+          ctx.fillRect(0, 0, size, size);
+
+          ctx.textAlign = "left";
+          ctx.textBaseline = "middle";
+          const leftX = size * 0.16;
+
+          // VNIT
+          ctx.fillStyle = C_CARBON;
+          ctx.font = `900 ${size * 0.22}px 'Plus Jakarta Sans', sans-serif`;
+          ctx.fillText("VNIT", leftX, size * 0.35);
+
+          // BUILDER
+          ctx.fillStyle = C_AMBER;
+          ctx.font = `800 ${size * 0.13}px 'Plus Jakarta Sans', sans-serif`;
+          ctx.fillText("BUILDER", leftX, size * 0.54);
+
+          // BASE
+          ctx.fillStyle = C_ZINC_MUTED;
+          ctx.font = `800 ${size * 0.13}px 'Plus Jakarta Sans', sans-serif`;
+          ctx.fillText("BASE", leftX, size * 0.70);
+
+          // Amber Base bar
+          ctx.fillStyle = C_AMBER;
+          ctx.fillRect(leftX, size * 0.81, size * 0.22, size * 0.018);
+        }
+      },
+      {
+        id: 7,
+        title: "Terminal Code Brackets",
+        desc: "Developer & founder code bracket style: [ VNIT ] in Burnished Amber with Deep Carbon subtext.",
+        render: (ctx, size) => {
+          ctx.fillStyle = C_CARD;
+          ctx.fillRect(0, 0, size, size);
+
+          // Subtle hairline frame
+          ctx.strokeStyle = C_GRID;
+          ctx.lineWidth = 2;
+          ctx.strokeRect(size * 0.06, size * 0.06, size * 0.88, size * 0.88);
+
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+
+          // [ VNIT ]
+          ctx.fillStyle = C_AMBER;
+          ctx.font = `800 ${size * 0.18}px 'JetBrains Mono', monospace`;
+          ctx.fillText("[ VNIT ]", size/2, size * 0.42);
+
+          // BUILDER BASE in Carbon
+          ctx.fillStyle = C_CARBON;
+          ctx.font = `800 ${size * 0.082}px 'JetBrains Mono', monospace`;
+          ctx.fillText("BUILDER BASE", size/2, size * 0.63);
+        }
+      },
+      {
+        id: 8,
+        title: "Deep Carbon Foundry Seal",
+        desc: "Dark technical circular seal with dual hairline borders and high-legibility Warm Stone lettering.",
+        render: (ctx, size) => {
+          ctx.fillStyle = C_CARBON;
+          ctx.fillRect(0, 0, size, size);
+
+          // Concentric circles
+          ctx.strokeStyle = "rgba(217, 119, 6, 0.4)";
+          ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.arc(size/2, size/2, size * 0.42, 0, Math.PI * 2); ctx.stroke();
+
+          ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.arc(size/2, size/2, size * 0.38, 0, Math.PI * 2); ctx.stroke();
+
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+
+          // VNIT
+          ctx.fillStyle = C_CANVAS;
+          ctx.font = `900 ${size * 0.22}px 'Plus Jakarta Sans', sans-serif`;
+          ctx.fillText("VNIT", size/2, size * 0.43);
+
+          // BUILDER BASE
+          ctx.fillStyle = C_AMBER;
+          ctx.font = `700 ${size * 0.076}px 'JetBrains Mono', monospace`;
+          ctx.fillText("BUILDER BASE", size/2, size * 0.65);
+        }
+      },
+      {
+        id: 9,
+        title: "Amber Telemetry Pill Classic",
+        desc: "Matches the website's status pills and review counters: Warm Zinc text with dual-tone Amber accent pill.",
+        render: (ctx, size) => {
+          ctx.fillStyle = C_CANVAS;
+          ctx.fillRect(0, 0, size, size);
+
+          // Card
+          ctx.fillStyle = C_CARD;
+          ctx.strokeStyle = C_GRID;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.roundRect(size * 0.08, size * 0.08, size * 0.84, size * 0.84, size * 0.08);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+
+          // VNIT
+          ctx.fillStyle = C_CARBON;
+          ctx.font = `900 ${size * 0.22}px 'Plus Jakarta Sans', sans-serif`;
+          ctx.fillText("VNIT", size/2, size * 0.39);
+
+          // BUILDER BASE Pill
+          const pw = size * 0.68;
+          const ph = size * 0.14;
+          const px = (size - pw)/2;
+          const py = size * 0.57;
+          ctx.fillStyle = C_TINT_BG;
+          ctx.strokeStyle = C_TINT_BORDER;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.roundRect(px, py, pw, ph, 999);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.fillStyle = C_TINT_TEXT;
+          ctx.font = `800 ${size * 0.068}px 'JetBrains Mono', monospace`;
+          ctx.fillText("BUILDER BASE", size/2, py + ph/2);
+        }
+      },
+      {
+        id: 10,
+        title: "Clean Stacked High-Contrast",
+        desc: "Optimized specifically for maximum visibility at tiny 32px mobile avatar sizes, using Deep Carbon and Amber.",
+        render: (ctx, size) => {
+          ctx.fillStyle = C_CARD;
+          ctx.fillRect(0, 0, size, size);
+
+          // Subtle Warm Stone Circular Halo
+          ctx.fillStyle = C_CANVAS;
+          ctx.beginPath();
+          ctx.arc(size/2, size/2, size * 0.44, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+
+          // VNIT
+          ctx.fillStyle = C_CARBON;
+          ctx.font = `900 ${size * 0.21}px 'Plus Jakarta Sans', sans-serif`;
+          ctx.fillText("VNIT", size/2, size * 0.36);
+
+          // BUILDER
+          ctx.fillStyle = C_AMBER;
+          ctx.font = `800 ${size * 0.11}px 'Plus Jakarta Sans', sans-serif`;
+          ctx.fillText("BUILDER", size/2, size * 0.54);
+
+          // BASE
+          ctx.fillStyle = C_ZINC_DARK;
+          ctx.font = `800 ${size * 0.11}px 'Plus Jakarta Sans', sans-serif`;
+          ctx.fillText("BASE", size/2, size * 0.70);
+        }
+      }
+    ];
+
+    const grid = document.getElementById('avatarGrid');
+
+    variations.forEach(v => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      card.innerHTML = `
+        <div class="card-top">
+          <span class="card-title">${v.title}</span>
+          <span class="card-num">VAR ${v.id < 10 ? '0' + v.id : v.id}</span>
+        </div>
+        <div class="preview-stage">
+          <div class="avatar-wrapper">
+            <div class="avatar-square">
+              <canvas id="canvas-sq-${v.id}" width="512" height="512" style="width: 180px; height: 180px;"></canvas>
+            </div>
+            <div class="preview-tag">Square App Icon</div>
+          </div>
+          <div class="avatar-wrapper">
+            <div class="avatar-circle-preview">
+              <canvas id="canvas-cir-${v.id}" width="512" height="512" style="width: 76px; height: 76px;"></canvas>
+            </div>
+            <div class="preview-tag">Circle (Profile)</div>
+          </div>
+        </div>
+        <p class="card-desc">${v.desc}</p>
+        <button class="btn-download" onclick="downloadAvatar(${v.id}, '${v.title}')">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          Download 512×512 PNG
+        </button>
+      `;
+
+      grid.appendChild(card);
+
+      // Render
+      setTimeout(() => {
+        const sqCanvas = document.getElementById(`canvas-sq-${v.id}`);
+        const cirCanvas = document.getElementById(`canvas-cir-${v.id}`);
+        if (sqCanvas) {
+          const ctxSq = sqCanvas.getContext('2d');
+          v.render(ctxSq, 512);
+        }
+        if (cirCanvas) {
+          const ctxCir = cirCanvas.getContext('2d');
+          v.render(ctxCir, 512);
+        }
+      }, 50);
+    });
+
+    function downloadAvatar(id, title) {
+      const canvas = document.getElementById(`canvas-sq-${id}`);
+      if (!canvas) return;
+      const link = document.createElement('a');
+      link.download = `vnit_builderbase_avatar_var_${id}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+  </script>
+</body>
+</html>
