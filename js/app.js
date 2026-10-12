@@ -2350,10 +2350,10 @@
     });
 
     let activeDonationAmt = 150;
-    const BMC_SUPPORT_URL = 'https://buymeacoffee.com/vnitbuilderbase';
+    const RAZORPAY_ME_BASE_URL = 'https://razorpay.me/@vnitbuilderbase';
 
-    function getBmcSupportUrl() {
-      return BMC_SUPPORT_URL;
+    function getRazorpayPaymentUrl() {
+      return RAZORPAY_ME_BASE_URL;
     }
 
     function selectDonationAmt(amt, el) {
@@ -2365,8 +2365,8 @@
 
       const btn = document.getElementById('dockSupportBtn');
       if (btn) {
-        btn.innerHTML = `Support ₹${amt} via Buy Me a Coffee ☕ ↗`;
-        btn.href = BMC_SUPPORT_URL;
+        btn.innerHTML = `Pay ₹${amt} via GPay / UPI / Cards ↗`;
+        btn.href = RAZORPAY_ME_BASE_URL;
       }
     }
 
@@ -2383,8 +2383,8 @@
           else {
             const btn = document.getElementById('dockSupportBtn');
             if (btn) {
-              btn.innerHTML = `Support via Buy Me a Coffee ☕ ↗`;
-              btn.href = BMC_SUPPORT_URL;
+              btn.innerHTML = `Pay Custom via GPay / UPI / Cards ↗`;
+              btn.href = RAZORPAY_ME_BASE_URL;
             }
           }
         }
@@ -2397,13 +2397,13 @@
       if (clean && clean > 0) {
         activeDonationAmt = clean;
         if (btn) {
-          btn.innerHTML = `Support ₹${clean} via Buy Me a Coffee ☕ ↗`;
-          btn.href = BMC_SUPPORT_URL;
+          btn.innerHTML = `Pay ₹${clean} via GPay / UPI / Cards ↗`;
+          btn.href = RAZORPAY_ME_BASE_URL;
         }
       } else {
         if (btn) {
-          btn.innerHTML = `Support via Buy Me a Coffee ☕ ↗`;
-          btn.href = BMC_SUPPORT_URL;
+          btn.innerHTML = `Pay Custom via GPay / UPI / Cards ↗`;
+          btn.href = RAZORPAY_ME_BASE_URL;
         }
       }
     }
@@ -2415,7 +2415,7 @@
     }
 
     function triggerUpiPay() {
-      window.open(BMC_SUPPORT_URL, '_blank', 'noopener,noreferrer');
+      window.open(RAZORPAY_ME_BASE_URL, '_blank', 'noopener,noreferrer');
       closeContributionModal();
     }
 
