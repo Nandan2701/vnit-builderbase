@@ -1886,10 +1886,6 @@
               <td class="val">${startup.location || 'India'}</td>
             </tr>
             <tr>
-              <td class="lbl">Funding</td>
-              <td class="val">${startup.funding_amount || 'Undisclosed'} (${startup.funding_stage || 'Active'})</td>
-            </tr>
-            <tr>
               <td class="lbl">About</td>
               <td class="val pitch">${startup.about || startup.pitch || ''}</td>
             </tr>
