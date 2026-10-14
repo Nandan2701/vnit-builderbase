@@ -900,12 +900,12 @@
             "funding_stage": "Bootstrapped",
             "funding_amount": "",
             "headcount": 4,
-            "incorporated_year": 2021,
+            "incorporated_year": 2022,
             "founders": [
                   {
                         "name": "Krushna Pandhare",
                         "role": "Founder",
-                        "degree": "B.Tech Metallurgical and Materials Engineering",
+                        "degree": "B.Tech MME '24",
                         "linkedin": "https://www.linkedin.com/in/krushna-pandhare-0a0135202/"
                   }
             ],
@@ -1706,7 +1706,7 @@
         // Derive clean batch tag (e.g. Mech '16, CSE '18, Batch '21)
         let batchTag = '';
         if (cardFounders.length > 0 && cardFounders[0].degree) {
-          const match = cardFounders[0].degree.match(/(Mech|CSE|ECE|EEE|Chem|Met|Civil|Arch|Biotech|EE|IT)[\s']+(\d{2})/i);
+          const match = cardFounders[0].degree.match(/(Mech|CSE|ECE|EEE|Chem|Met|MME|Civil|Arch|Biotech|EE|IT)[\s']+(\d{2})/i);
           if (match) {
             batchTag = `${match[1]} '${match[2]}`;
           }
