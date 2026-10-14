@@ -27,7 +27,7 @@
     "about": "Bombay Shaving Company is an omnichannel personal care and grooming brand that designs precision razors, trimmers, and skin-friendly personal care essentials trusted by millions of consumers across thousands of retail stores and online channels.",
     "slug": "bombay-shaving-company",
     "monogram": "BO",
-    "logo_url": "./assets/logos/bombay-shaving-company.png"
+    "logo_url": "./assets/logos/bombay-shaving-company-v2.png"
   },
   {
     "id": "0cf2c433-e644-408b-9a77-a0e6cd8fb15a",
@@ -123,7 +123,7 @@
     "about": "Delphi Cloud is a specialized cloud infrastructure and DevOps consultancy that architects secure Kubernetes clusters, multi-cloud deployments, and high-throughput data processing environments for fast-growing digital enterprises.",
     "slug": "delphi-cloud",
     "monogram": "DE",
-    "logo_url": "./assets/logos/delphi-cloud.png"
+    "logo_url": "./assets/logos/delphi-cloud-v2.svg"
   },
   {
     "id": "0dc44a5d-d1f9-41c3-953f-44017e4ccc25",
