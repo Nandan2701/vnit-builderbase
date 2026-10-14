@@ -12,6 +12,36 @@
     // Fallback Verified Seed Roster (guarantees instant zero-CORS rendering even via file:// protocol)
     const SEED_STARTUPS = [
       {
+            "id": "253a56da-0cbd-4967-9258-19ec2e45bcad",
+            "name": "Bombay Shaving Company",
+            "sector": "D2C & Consumer Personal Care",
+            "pitch": "Omnichannel personal care brand crafting precision shaving, grooming, and skincare essentials trusted by over 5 million consumers nationwide.",
+            "website_url": "https://www.bombayshavingcompany.com/",
+            "linkedin_url": "https://www.linkedin.com/company/bombay-shaving-company/",
+            "department": "Computer Science",
+            "batch_year": "2005 - 2009",
+            "location": "Gurgaon, Haryana",
+            "funding_stage": "",
+            "funding_amount": "",
+            "headcount": 435,
+            "incorporated_year": 2016,
+            "founders": [
+                  {
+                        "name": "Shantanu Deshpande",
+                        "role": "Co-Founder",
+                        "degree": "B.Tech CSE '09",
+                        "linkedin": "https://linkedin.com/in/shantanudeshpandebsc"
+                  }
+            ],
+            "is_verified": true,
+            "is_published": true,
+            "display_order": 0,
+            "about": "Bombay Shaving Company is an omnichannel personal care and grooming brand that designs precision razors, trimmers, and skin-friendly personal care essentials trusted by millions of consumers across thousands of retail stores and online channels.",
+            "slug": "bombay-shaving-company",
+            "monogram": "BO",
+            "logo_url": "./assets/logos/bombay-shaving-company.png"
+      },
+      {
             "id": "0cf2c433-e644-408b-9a77-a0e6cd8fb15a",
             "name": "Truemeds India",
             "sector": "HealthTech & Telehealth",
@@ -268,36 +298,6 @@
             "slug": "ettaflow",
             "monogram": "ET",
             "logo_url": "./assets/logos/ettaflow.png"
-      },
-      {
-            "id": "253a56da-0cbd-4967-9258-19ec2e45bcad",
-            "name": "Bombay Shaving Company",
-            "sector": "D2C & Consumer Personal Care",
-            "pitch": "Omnichannel personal care brand crafting precision shaving, grooming, and skincare essentials trusted by over 5 million consumers nationwide.",
-            "website_url": "https://www.bombayshavingcompany.com/",
-            "linkedin_url": "https://www.linkedin.com/company/bombay-shaving-company/",
-            "department": "Computer Science",
-            "batch_year": "2005 - 2009",
-            "location": "Gurgaon, Haryana",
-            "funding_stage": "",
-            "funding_amount": "",
-            "headcount": 435,
-            "incorporated_year": 2016,
-            "founders": [
-                  {
-                        "name": "Shantanu Deshpande",
-                        "role": "Co-Founder",
-                        "degree": "B.Tech CSE '09",
-                        "linkedin": "https://linkedin.com/in/shantanudeshpandebsc"
-                  }
-            ],
-            "is_verified": true,
-            "is_published": true,
-            "display_order": 9,
-            "about": "Bombay Shaving Company is an omnichannel personal care and grooming brand that designs precision razors, trimmers, and skin-friendly personal care essentials trusted by millions of consumers across thousands of retail stores and online channels.",
-            "slug": "bombay-shaving-company",
-            "monogram": "BO",
-            "logo_url": "./assets/logos/bombay-shaving-company.png"
       },
       {
             "id": "08ba9fc5-212e-401d-bc5d-09f8348d3aa6",
