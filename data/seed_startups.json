@@ -936,6 +936,36 @@
     "logo_url": "./assets/logos/airolabs-ai.png"
   },
   {
+    "id": "19b8beb3-530d-45a3-b7fc-7bd11e15e0a4",
+    "name": "The Creative Cult",
+    "sector": "Creator Economy & Media EdTech",
+    "pitch": "The most personalised video editing & storytelling co-hort in India.",
+    "website_url": "",
+    "linkedin_url": "https://www.linkedin.com/company/thecreativexcult/",
+    "department": "Chemical Engineering",
+    "batch_year": null,
+    "location": "",
+    "funding_stage": "Bootstrapped",
+    "funding_amount": "",
+    "headcount": 11,
+    "incorporated_year": 2024,
+    "founders": [
+      {
+        "name": "Akash Majumder",
+        "role": "Founder, Head of Content",
+        "degree": "B.Tech CME '24",
+        "linkedin": "https://www.linkedin.com/in/akash-majumder-90a26b1a6/"
+      }
+    ],
+    "is_verified": true,
+    "is_published": true,
+    "display_order": 29.5,
+    "about": "The most personalised video editing & storytelling co-hort in India.",
+    "slug": "the-creative-cult",
+    "monogram": "CC",
+    "logo_url": "./assets/logos/the-creative-cult.png"
+  },
+  {
     "id": "f4cf059f-cec1-4c31-a3cb-40c37e0e7825",
     "name": "Aristok Technologies",
     "sector": "Technology & Enterprise Solutions",

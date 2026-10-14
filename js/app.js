@@ -948,6 +948,36 @@
             "logo_url": "./assets/logos/airolabs-ai.png"
       },
       {
+            "id": "19b8beb3-530d-45a3-b7fc-7bd11e15e0a4",
+            "name": "The Creative Cult",
+            "sector": "Creator Economy & Media EdTech",
+            "pitch": "The most personalised video editing & storytelling co-hort in India.",
+            "website_url": "",
+            "linkedin_url": "https://www.linkedin.com/company/thecreativexcult/",
+            "department": "Chemical Engineering",
+            "batch_year": null,
+            "location": "",
+            "funding_stage": "Bootstrapped",
+            "funding_amount": "",
+            "headcount": 11,
+            "incorporated_year": 2024,
+            "founders": [
+                  {
+                        "name": "Akash Majumder",
+                        "role": "Founder, Head of Content",
+                        "degree": "B.Tech CME '24",
+                        "linkedin": "https://www.linkedin.com/in/akash-majumder-90a26b1a6/"
+                  }
+            ],
+            "is_verified": true,
+            "is_published": true,
+            "display_order": 29.5,
+            "about": "The most personalised video editing & storytelling co-hort in India.",
+            "slug": "the-creative-cult",
+            "monogram": "CC",
+            "logo_url": "./assets/logos/the-creative-cult.png"
+      },
+      {
             "id": "f4cf059f-cec1-4c31-a3cb-40c37e0e7825",
             "name": "Aristok Technologies",
             "sector": "Technology & Enterprise Solutions",
@@ -1468,7 +1498,7 @@
         }
         if (target === 'electrical') return /\b(electrical|eee)\b/i.test(s);
         if (target === 'mechanical') return /\b(mechanical|mech)\b/i.test(s);
-        if (target === 'chemical') return /\b(chemical|chem)\b/i.test(s);
+        if (target === 'chemical') return /\b(chemical|chem|cme)\b/i.test(s);
         if (target === 'civil') return /\b(civil)\b/i.test(s);
         if (target === 'metallurgy') return /\b(metallurg|metallurgy|material|materials|mme)\b/i.test(s);
         if (target === 'mining') return /\b(mining|mine)\b/i.test(s);
@@ -1668,6 +1698,8 @@
         'synthesis_ankit-kalkar': './assets/Profile Pics/synthesis_ankit-kalkar.jpg',
         'synthesis_aniket-kalkar': './assets/Profile Pics/synthesis_ankit-kalkar.jpg',
         'teemgenie_sandeep-deshmukh': './assets/Profile Pics/teemgenie_sandeep-deshmukh.jpg',
+        'the-creative-cult_akash-majumder': './assets/Profile Pics/the-creative-cult_akash-majumder.jpg',
+        'thecreativexcult_akash-majumder': './assets/Profile Pics/the-creative-cult_akash-majumder.jpg',
         'truemeds-india_akshat-nayyar': './assets/Profile Pics/truemeds-india_akshat-nayyar.jpg',
         'well-played-sports_ketan-kaore': './assets/Profile Pics/well-played-sports_ketan-kaore.jpg'
       };
@@ -1706,7 +1738,7 @@
         // Derive clean batch tag (e.g. Mech '16, CSE '18, Batch '21)
         let batchTag = '';
         if (cardFounders.length > 0 && cardFounders[0].degree) {
-          const match = cardFounders[0].degree.match(/(Mech|CSE|ECE|EEE|Chem|Met|MME|Civil|Arch|Biotech|EE|IT)[\s']+(\d{2})/i);
+          const match = cardFounders[0].degree.match(/(Mech|CSE|ECE|EEE|Chem|CME|Met|MME|Civil|Arch|Biotech|EE|IT)[\s']+(\d{2})/i);
           if (match) {
             batchTag = `${match[1]} '${match[2]}`;
           }
