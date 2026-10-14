@@ -888,6 +888,36 @@
             "logo_url": "./assets/logos/sigmantle-research.png"
       },
       {
+            "id": "ab088547-6db7-4be9-874b-f58c55b9a393",
+            "name": "FDVZ healthy life pvt Ltd",
+            "sector": "HealthTech & Preventive Healthcare",
+            "pitch": "Building Healthcare Solutions Across Consumers, Institutions & Public Health Ecosystems",
+            "website_url": "https://foodvez.com/",
+            "linkedin_url": "https://www.linkedin.com/company/foodvez/",
+            "department": "Metallurgical and Materials Engineering",
+            "batch_year": null,
+            "location": "Pune, Maharashtra, India",
+            "funding_stage": "Bootstrapped",
+            "funding_amount": "",
+            "headcount": 4,
+            "incorporated_year": 2021,
+            "founders": [
+                  {
+                        "name": "Krushna Pandhare",
+                        "role": "Founder",
+                        "degree": "B.Tech Metallurgical and Materials Engineering",
+                        "linkedin": "https://www.linkedin.com/in/krushna-pandhare-0a0135202/"
+                  }
+            ],
+            "is_verified": true,
+            "is_published": true,
+            "display_order": 28.5,
+            "about": "FDVZ Healthy Life (Foodvez) builds innovative preventative healthcare, nutrition, and wellness solutions designed to deliver accessible health outcomes across consumers, institutions, and public health ecosystems.",
+            "slug": "fdvz-healthy-life-pvt-ltd",
+            "monogram": "FD",
+            "logo_url": "./assets/logos/foodvez.png"
+      },
+      {
             "id": "bdf99c8c-293e-4e0e-81ef-91d83cea6b19",
             "name": "Airolabs.ai",
             "sector": "Technology & Enterprise Solutions",
@@ -1631,6 +1661,8 @@
         'neewee_harsimrat-bhasin': './assets/Profile Pics/neewee_harsimrat-bhasin.jpg',
         'product-space_sakshi-yadav': './assets/Profile Pics/product-space_sakshi-yadav.jpg',
         'sigmantle-research_shreyash-kakde': './assets/Profile Pics/sigmantle-research_shreyash-kakde.jpg',
+        'fdvz-healthy-life-pvt-ltd_krushna-pandhare': './assets/Profile Pics/foodvez_krushna-pandhare.jpg',
+        'foodvez_krushna-pandhare': './assets/Profile Pics/foodvez_krushna-pandhare.jpg',
         'simpleworks_indraneel-fuke': './assets/Profile Pics/simpleworks_indraneel-fuke.jpg',
         'str8bat_rahul-nagar': './assets/Profile Pics/str8bat_rahul-nagar.jpg',
         'synthesis_ankit-kalkar': './assets/Profile Pics/synthesis_ankit-kalkar.jpg',
