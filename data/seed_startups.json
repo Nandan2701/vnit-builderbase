@@ -96,6 +96,36 @@
     "logo_url": "./assets/logos/konverge-ai.png"
   },
   {
+    "id": "8a6e3bda-7cb7-4fba-8721-19d26932b5a0",
+    "name": "Delphi Cloud",
+    "sector": "Technology & Enterprise Solutions",
+    "pitch": "Developer-first cloud infrastructure provider offering scalable virtual machines, managed Kubernetes, and S3-compatible object storage at predictable pricing.",
+    "website_url": "https://www.delphicloud.ai/",
+    "linkedin_url": "https://www.linkedin.com/company/delphi-cloud/",
+    "department": "",
+    "batch_year": "",
+    "location": "Nagpur, Maharashtra, India",
+    "funding_stage": "",
+    "funding_amount": "",
+    "headcount": 4,
+    "incorporated_year": 2024,
+    "founders": [
+      {
+        "name": "Shreyas Mokadam",
+        "role": "Founder",
+        "degree": "B.Tech Mining Engineering '16",
+        "linkedin": "https://linkedin.com/in/shreyas-mokadam-a451b8120"
+      }
+    ],
+    "is_verified": true,
+    "is_published": true,
+    "display_order": 1.8,
+    "about": "Delphi Cloud is a specialized cloud infrastructure and DevOps consultancy that architects secure Kubernetes clusters, multi-cloud deployments, and high-throughput data processing environments for fast-growing digital enterprises.",
+    "slug": "delphi-cloud",
+    "monogram": "DE",
+    "logo_url": "./assets/logos/delphi-cloud.png"
+  },
+  {
     "id": "0dc44a5d-d1f9-41c3-953f-44017e4ccc25",
     "name": "Awiros",
     "sector": "Computer Vision & Edge AI",
@@ -694,36 +724,6 @@
     "slug": "findem",
     "monogram": "FI",
     "logo_url": "./assets/logos/findem.png"
-  },
-  {
-    "id": "8a6e3bda-7cb7-4fba-8721-19d26932b5a0",
-    "name": "Delphi Cloud",
-    "sector": "Technology & Enterprise Solutions",
-    "pitch": "Developer-first cloud infrastructure provider offering scalable virtual machines, managed Kubernetes, and S3-compatible object storage at predictable pricing.",
-    "website_url": "https://www.delphicloud.ai/",
-    "linkedin_url": "https://www.linkedin.com/company/delphi-cloud/",
-    "department": "",
-    "batch_year": "",
-    "location": "Nagpur, Maharashtra, India",
-    "funding_stage": "",
-    "funding_amount": "",
-    "headcount": 4,
-    "incorporated_year": 2024,
-    "founders": [
-      {
-        "name": "Shreyas Mokadam",
-        "role": "Founder",
-        "degree": "B.Tech Mining Engineering '16",
-        "linkedin": "https://linkedin.com/in/shreyas-mokadam-a451b8120"
-      }
-    ],
-    "is_verified": true,
-    "is_published": true,
-    "display_order": 22,
-    "about": "Delphi Cloud is a specialized cloud infrastructure and DevOps consultancy that architects secure Kubernetes clusters, multi-cloud deployments, and high-throughput data processing environments for fast-growing digital enterprises.",
-    "slug": "delphi-cloud",
-    "monogram": "DE",
-    "logo_url": "./assets/logos/delphi-cloud.png"
   },
   {
     "id": "96ce868b-f3bd-40b1-be72-ab589330cf2a",
