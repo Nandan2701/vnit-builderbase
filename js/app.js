@@ -72,6 +72,42 @@
             "logo_url": "./assets/logos/truemeds-india.png"
       },
       {
+            "id": "8ebd47ac-4a65-4523-bcf7-01afe2ea5f9f",
+            "name": "Konverge AI",
+            "sector": "Enterprise AI & GenAI Systems",
+            "pitch": "Enterprise AI engineering and decision science firm designing bespoke Generative AI agents, predictive vision models, and automated data pipelines for industry leaders.",
+            "website_url": "https://konverge.ai/",
+            "linkedin_url": "https://www.linkedin.com/company/konverge-ai/",
+            "department": "",
+            "batch_year": "",
+            "location": "Nagpur, Maharashtra, India",
+            "funding_stage": "",
+            "funding_amount": "",
+            "headcount": 174,
+            "incorporated_year": 2018,
+            "founders": [
+                  {
+                        "name": "Sagar Ghonge",
+                        "role": "Co-Founder and Chief Operating Officer",
+                        "degree": "B.Tech Civil Engineering '09",
+                        "linkedin": "https://linkedin.com/in/sagarghonge"
+                  },
+                  {
+                        "name": "Prateek Chandrayan",
+                        "role": "Co-FOunder",
+                        "degree": "B.Tech Civil Engineering '09",
+                        "linkedin": "https://linkedin.com/in/prateekchandrayan"
+                  }
+            ],
+            "is_verified": true,
+            "is_published": true,
+            "display_order": 1.5,
+            "about": "Konverge AI is an applied artificial intelligence engineering firm that builds and deploys custom generative AI workflows, computer vision models, and automated machine learning systems for enterprise clients across healthcare, logistics, and finance.",
+            "slug": "konverge-ai",
+            "monogram": "KO",
+            "logo_url": "./assets/logos/konverge-ai.png"
+      },
+      {
             "id": "0dc44a5d-d1f9-41c3-953f-44017e4ccc25",
             "name": "Awiros",
             "sector": "Computer Vision & Edge AI",
@@ -700,42 +736,6 @@
             "slug": "delphi-cloud",
             "monogram": "DE",
             "logo_url": "./assets/logos/delphi-cloud.png"
-      },
-      {
-            "id": "8ebd47ac-4a65-4523-bcf7-01afe2ea5f9f",
-            "name": "Konverge AI",
-            "sector": "Enterprise AI & GenAI Systems",
-            "pitch": "Enterprise AI engineering and decision science firm designing bespoke Generative AI agents, predictive vision models, and automated data pipelines for industry leaders.",
-            "website_url": "https://konverge.ai/",
-            "linkedin_url": "https://www.linkedin.com/company/konverge-ai/",
-            "department": "",
-            "batch_year": "",
-            "location": "Nagpur, Maharashtra, India",
-            "funding_stage": "",
-            "funding_amount": "",
-            "headcount": 174,
-            "incorporated_year": 2018,
-            "founders": [
-                  {
-                        "name": "Sagar Ghonge",
-                        "role": "Co-Founder and Chief Operating Officer",
-                        "degree": "B.Tech Civil Engineering '09",
-                        "linkedin": "https://linkedin.com/in/sagarghonge"
-                  },
-                  {
-                        "name": "Prateek Chandrayan",
-                        "role": "Co-FOunder",
-                        "degree": "B.Tech Civil Engineering '09",
-                        "linkedin": "https://linkedin.com/in/prateekchandrayan"
-                  }
-            ],
-            "is_verified": true,
-            "is_published": true,
-            "display_order": 23,
-            "about": "Konverge AI is an applied artificial intelligence engineering firm that builds and deploys custom generative AI workflows, computer vision models, and automated machine learning systems for enterprise clients across healthcare, logistics, and finance.",
-            "slug": "konverge-ai",
-            "monogram": "KO",
-            "logo_url": "./assets/logos/konverge-ai.png"
       },
       {
             "id": "96ce868b-f3bd-40b1-be72-ab589330cf2a",
